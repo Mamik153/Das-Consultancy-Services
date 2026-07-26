@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Das Software Consultancy
 
-## Getting Started
+Marketing site. Next.js 16 canary (App Router), Tailwind v4, shadcn/ui. Every
+page is statically prerendered.
 
-First, run the development server:
+## Before launch
+
+Everything on the site reads from **`site.config.ts`**. Search it for `TODO`.
+In priority order:
+
+1. **`NEXT_PUBLIC_SITE_URL`** — set in `.env.local` and in Vercel. Without it
+   every canonical URL, the sitemap, `robots.txt`, and `llms.txt` all point at
+   `https://example.com`.
+2. **`description` and each service `summary`** — this is the text answer
+   engines quote when asked what the firm does. Concrete beats aspirational.
+3. **`sameAs`** — LinkedIn / GitHub URLs. Confirms to search engines that the
+   business is a real, identifiable entity.
+4. **Resend sender** — `app/contact/actions.ts` sends from `onboarding@resend.dev`,
+   which only delivers to your own Resend account address. Verify your domain in
+   Resend and change it.
+5. **`app/about/page.tsx`** — two `TODO` blocks of placeholder biography.
+
+## Commands
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm dev      # dev server
+pnpm test     # zod contact-schema assertions (node --test)
+pnpm build    # production build — all routes must show ○ (Static)
+pnpm start    # serve the production build
+pnpm lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy `.env.example` to `.env.local`. Three variables: `NEXT_PUBLIC_SITE_URL`,
+`RESEND_API_KEY`, `CONTACT_TO_EMAIL`. Set all three in Vercel across
+Production, Preview, and Development.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## SEO / GEO surface
 
-## Learn More
+| What | Where |
+|---|---|
+| Root + per-page metadata, canonicals | `app/layout.tsx`, each `page.tsx` |
+| JSON-LD (ProfessionalService, WebSite, FAQPage, BreadcrumbList) | `lib/schema.ts` |
+| Sitemap | `app/sitemap.ts` — add a line per new route |
+| robots.txt, AI crawlers explicitly allowed | `app/robots.ts` |
+| `llms.txt` | `app/llms.txt/route.ts` — generated from `site.config.ts` |
+| OG image (1200×630) | `app/opengraph-image.tsx` |
 
-To learn more about Next.js, take a look at the following resources:
+## Deliberately not here
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+No CMS, no database, no auth, no middleware, no Cache Components — nothing on
+this site is dynamic, so none of it would earn its keep. No blog yet; when you
+want one, `/insights` with MDX slots in without restructuring, and it is the
+single highest-leverage addition for getting cited by answer engines.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contact form rate limiting is a honeypot only. Add `@upstash/ratelimit` if spam
+actually shows up.

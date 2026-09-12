@@ -19,21 +19,12 @@ export default function ContactPage() {
     <>
       <JsonLd data={graph(breadcrumbSchema([{ name: "Contact", path: "/contact" }]))} />
 
-      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
-        <h1 className="text-4xl font-semibold tracking-tight text-balance">
+      <section className="interior-page mx-auto max-w-3xl px-6">
+        <h1 className="text-5xl font-normal tracking-tight text-balance sm:text-7xl">
           Start an enquiry
         </h1>
         <p className="mt-6 text-lg text-muted-foreground text-pretty">{description}</p>
-        <p className="mt-4 text-muted-foreground">
-          Prefer email? Write to{" "}
-          <a
-            href={`mailto:${site.email}`}
-            className="font-medium text-foreground underline underline-offset-4"
-          >
-            {site.email}
-          </a>
-          .
-        </p>
+
 
         <div className="mt-12">
           <ContactForm />

@@ -27,8 +27,8 @@ export default function ServicesPage() {
         )}
       />
 
-      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
-        <h1 className="text-4xl font-semibold tracking-tight text-balance">
+      <section className="interior-page mx-auto max-w-3xl px-6">
+        <h1 className="text-5xl font-normal tracking-tight text-balance sm:text-7xl">
           Services
         </h1>
         <p className="mt-6 text-lg text-muted-foreground text-pretty">{description}</p>
@@ -47,7 +47,7 @@ export default function ServicesPage() {
               id={`${s.slug}-heading`}
               className="text-2xl font-semibold tracking-tight"
             >
-              {s.title}
+              <Link href={`/services/${s.slug}`}>{s.title}</Link>
             </h2>
             <p className="mt-4 text-muted-foreground">{s.summary}</p>
             <h3 className="mt-8 text-sm font-medium tracking-wide uppercase">
@@ -61,6 +61,7 @@ export default function ServicesPage() {
                 </li>
               ))}
             </ul>
+            <Link href={`/services/${s.slug}`} className="text-link mt-6">Explore {s.title.toLowerCase()}</Link>
           </section>
         ))}
       </div>

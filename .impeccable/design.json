@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-12T18:38:52.520595+00:00",
+  "title": "Design System: Das Software Consultancy",
+  "extensions": {
+    "colorMeta": {
+      "agency-blue": {
+        "role": "primary",
+        "displayName": "Cobalt",
+        "tonalRamp": [
+          "oklch(15% 0.23 264)",
+          "oklch(26% 0.23 264)",
+          "oklch(37% 0.23 264)",
+          "oklch(49% 0.23 264)",
+          "oklch(60% 0.23 264)",
+          "oklch(72% 0.23 264)",
+          "oklch(84% 0.23 264)",
+          "oklch(95% 0.23 264)"
+        ]
+      },
+      "agency-ink": {
+        "role": "neutral",
+        "displayName": "Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.004 260)",
+          "oklch(26% 0.004 260)",
+          "oklch(37% 0.004 260)",
+          "oklch(49% 0.004 260)",
+          "oklch(60% 0.004 260)",
+          "oklch(72% 0.004 260)",
+          "oklch(84% 0.004 260)",
+          "oklch(95% 0.004 260)"
+        ]
+      },
+      "agency-paper": {
+        "role": "neutral",
+        "displayName": "Light paper",
+        "tonalRamp": [
+          "oklch(15% 0.002 260)",
+          "oklch(26% 0.002 260)",
+          "oklch(37% 0.002 260)",
+          "oklch(49% 0.002 260)",
+          "oklch(60% 0.002 260)",
+          "oklch(72% 0.002 260)",
+          "oklch(84% 0.002 260)",
+          "oklch(95% 0.002 260)"
+        ]
+      },
+      "agency-muted": {
+        "role": "neutral",
+        "displayName": "Muted gray",
+        "tonalRamp": [
+          "oklch(15% 0.006 260)",
+          "oklch(26% 0.006 260)",
+          "oklch(37% 0.006 260)",
+          "oklch(49% 0.006 260)",
+          "oklch(60% 0.006 260)",
+          "oklch(72% 0.006 260)",
+          "oklch(84% 0.006 260)",
+          "oklch(95% 0.006 260)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(37% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "divider": {
+        "role": "neutral",
+        "displayName": "Divider",
+        "tonalRamp": [
+          "oklch(15% 0.004 260)",
+          "oklch(26% 0.004 260)",
+          "oklch(37% 0.004 260)",
+          "oklch(49% 0.004 260)",
+          "oklch(60% 0.004 260)",
+          "oklch(72% 0.004 260)",
+          "oklch(84% 0.004 260)",
+          "oklch(95% 0.004 260)"
+        ]
+      },
+      "dark-body": {
+        "role": "neutral",
+        "displayName": "Dark body",
+        "tonalRamp": [
+          "oklch(15% 0.009 270)",
+          "oklch(26% 0.009 270)",
+          "oklch(37% 0.009 270)",
+          "oklch(49% 0.009 270)",
+          "oklch(60% 0.009 270)",
+          "oklch(72% 0.009 270)",
+          "oklch(84% 0.009 270)",
+          "oklch(95% 0.009 270)"
+        ]
+      },
+      "blue-body": {
+        "role": "neutral",
+        "displayName": "Blue body",
+        "tonalRamp": [
+          "oklch(15% 0.04 264)",
+          "oklch(26% 0.04 264)",
+          "oklch(37% 0.04 264)",
+          "oklch(49% 0.04 264)",
+          "oklch(60% 0.04 264)",
+          "oklch(72% 0.04 264)",
+          "oklch(84% 0.04 264)",
+          "oklch(95% 0.04 264)"
+        ]
+      },
+      "input": {
+        "role": "neutral",
+        "displayName": "Input",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(37% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "destructive": {
+        "role": "functional",
+        "displayName": "Destructive",
+        "tonalRamp": [
+          "oklch(15% 0.245 27.325)",
+          "oklch(26% 0.245 27.325)",
+          "oklch(37% 0.245 27.325)",
+          "oklch(49% 0.245 27.325)",
+          "oklch(60% 0.245 27.325)",
+          "oklch(72% 0.245 27.325)",
+          "oklch(84% 0.245 27.325)",
+          "oklch(95% 0.245 27.325)"
+        ]
+      }
+    },
+    "shadows": [
+      {
+        "name": "field-focus",
+        "value": "0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent)",
+        "purpose": "Interaction feedback on existing form fields."
+      }
+    ],
+    "motion": [
+      {
+        "name": "anchor-scroll",
+        "value": "smooth",
+        "purpose": "Anchor navigation; auto under prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrow",
+        "value": "360px"
+      },
+      {
+        "name": "mobile",
+        "value": "760px"
+      },
+      {
+        "name": "tablet",
+        "value": "1000px"
+      },
+      {
+        "name": "wide",
+        "value": "1600px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Dark action",
+      "kind": "button",
+      "refersTo": "button-dark",
+      "description": "Primary hero enquiry link.",
+      "html": "<a class=\"ds-dark\" href=\"/contact\">Let\u2019s build together<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></a>",
+      "css": ".ds-dark{font-family:var(--font-manrope,Manrope),sans-serif;display:inline-flex;align-items:center;justify-content:space-between;gap:32px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none;min-height:54px;padding:15px 24px;background:var(--agency-ink,#191a1c);color:#fff}.ds-dark:hover{background:var(--agency-blue,#064fe8)}.ds-dark:focus-visible{outline:2px solid currentColor;outline-offset:6px;}"
+    },
+    {
+      "name": "Outlined action",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Header enquiry link.",
+      "html": "<a class=\"ds-outline\" href=\"/contact\">Let\u2019s talk<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></a>",
+      "css": ".ds-outline{font-family:var(--font-manrope,Manrope),sans-serif;display:inline-flex;align-items:center;justify-content:space-between;gap:32px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none;min-height:45px;padding:11px 19px;border:1px solid #c8c9cc;color:var(--agency-ink,#191a1c)}.ds-outline:hover{background:var(--agency-paper,#f1f2f3)}.ds-outline:focus-visible{outline:2px solid currentColor;outline-offset:6px;}"
+    },
+    {
+      "name": "Main navigation",
+      "kind": "nav",
+      "description": "Visible links, including on small screens.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main\"><a href=\"/services\">Expertise</a><a href=\"/#approach\">Our approach</a><a href=\"/about\">About us</a></nav>",
+      "css": ".ds-nav{font-family:var(--font-manrope,Manrope),sans-serif;display:flex;gap:34px;font-size:14px}.ds-nav a{padding:12px 0;color:var(--agency-ink,#191a1c);text-decoration:none}.ds-nav a:hover{color:var(--agency-blue,#064fe8)}.ds-nav a:focus-visible{outline:2px solid currentColor;outline-offset:6px;}@media(max-width:760px){.ds-nav{justify-content:center;gap:30px;font-size:12px;border-top:1px solid #ececee}}"
+    },
+    {
+      "name": "Service row",
+      "kind": "custom",
+      "description": "Linked title and description separated by fine dividers.",
+      "html": "<a class=\"ds-service\" href=\"/services\"><h3>Product engineering</h3><p>From first idea to first release.</p><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></span></a>",
+      "css": ".ds-service{font-family:var(--font-manrope,Manrope),sans-serif;display:grid;grid-template-columns:1.15fr 1fr 50px;align-items:center;gap:24px;padding:29px 8px 29px 0;border-block:1px solid #d8d9dc;color:var(--agency-ink,#191a1c);text-decoration:none}.ds-service h3{font-size:clamp(25px,2.6vw,38px);font-weight:450;letter-spacing:-.03em;margin:0}.ds-service p{font-size:14px;color:var(--agency-muted,#626367);margin:0}.ds-service span{width:44px;height:44px;display:grid;place-items:center;border:1px solid #d8d9dc;border-radius:50%}.ds-service:hover h3{color:var(--agency-blue,#064fe8)}.ds-service:hover span{background:var(--agency-blue,#064fe8);border-color:var(--agency-blue,#064fe8);color:#fff}.ds-service:focus-visible{outline:2px solid currentColor;outline-offset:6px;}@media(max-width:760px){.ds-service{grid-template-columns:1fr 44px;gap:8px 15px;padding-block:24px}.ds-service h3{font-size:28px}.ds-service p{grid-column:1;font-size:13px}.ds-service span{grid-column:2;grid-row:1/3}}"
+    },
+    {
+      "name": "Founder panel",
+      "kind": "card",
+      "refersTo": "founder-panel",
+      "description": "Cobalt statement panel with factual signoff.",
+      "html": "<div class=\"ds-founder\"><span>Das Software Consultancy</span><p>Small by choice.<br>Accountable<br>by name.</p><div><strong>Mamik Das</strong><small>Founder &amp; engineering partner</small></div></div>",
+      "css": ".ds-founder{font-family:var(--font-manrope,Manrope),sans-serif;background:var(--agency-blue,#064fe8);color:#fff;border-radius:28px;padding:36px;min-height:465px;display:flex;flex-direction:column;justify-content:space-between;gap:36px}.ds-founder>span{font-size:13px}.ds-founder>p{font-size:clamp(40px,4.5vw,64px);line-height:1.06;letter-spacing:-.035em;margin:0}.ds-founder>div{border-top:1px solid #7098ed;padding-top:25px}.ds-founder strong{display:block;font-size:14px;font-weight:500}.ds-founder small{display:block;color:#d8e4ff;font-size:11px;margin-top:4px}@media(max-width:760px){.ds-founder{min-height:410px;border-radius:22px;padding:28px}}"
+    },
+    {
+      "name": "Text input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Existing contact field with focus and invalid feedback.",
+      "html": "<label class=\"ds-label\" for=\"ds-email\">Email</label><input class=\"ds-input\" id=\"ds-email\" type=\"email\" placeholder=\"you@company.com\">",
+      "css": ".ds-label{font-family:var(--font-manrope,Manrope),sans-serif;display:block;font-size:14px;margin-bottom:8px}.ds-input{font-family:var(--font-manrope,Manrope),sans-serif;width:100%;min-width:0;min-height:46px;border:1px solid var(--input,oklch(.922 0 0));border-radius:var(--radius,.625rem);background:transparent;padding:4px 10px;font-size:16px;color:var(--agency-ink,#191a1c);outline:none;transition:color .15s,background-color .15s,border-color .15s}.ds-input::placeholder{color:var(--agency-muted,#626367)}.ds-input:focus-visible{border-color:var(--ring,#064fe8);box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,#064fe8) 50%,transparent)}.ds-input:disabled{cursor:not-allowed;background:color-mix(in oklab,var(--input,oklch(.922 0 0)) 50%,transparent);opacity:.5}.ds-input[aria-invalid=true]{border-color:var(--destructive,oklch(.577 .245 27.325));box-shadow:0 0 0 3px color-mix(in oklab,var(--destructive,oklch(.577 .245 27.325)) 20%,transparent)}@media(min-width:768px){.ds-input{font-size:14px}}"
+    },
+    {
+      "name": "FAQ disclosure",
+      "kind": "custom",
+      "description": "Native keyboard-operable disclosure with rotating plus.",
+      "html": "<details class=\"ds-faq\"><summary>Who owns the code?<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><p>You own your code and intellectual property.</p></details>",
+      "css": ".ds-faq{font-family:var(--font-manrope,Manrope),sans-serif;border-block:1px solid #d8d9dc;color:var(--agency-ink,#191a1c)}.ds-faq summary{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:24px 0;cursor:pointer;list-style:none;font-size:15px;font-weight:500}.ds-faq summary::-webkit-details-marker{display:none}.ds-faq summary svg{flex-shrink:0}.ds-faq[open] summary svg{transform:rotate(45deg)}.ds-faq summary:focus-visible{outline:2px solid currentColor;outline-offset:6px;}.ds-faq p{font-size:14px;line-height:1.7;color:var(--agency-muted,#626367);padding-bottom:24px;max-width:65ch;margin:0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Considered engineering",
+    "overview": "A premium independent engineering partnership expressed through cobalt, charcoal, generous Manrope typography, and rounded compositions. The original chrome-and-blue sculpture brings material depth; clear service descriptions and concrete delivery commitments establish trust.",
+    "keyCharacteristics": [
+      "Large, lightly weighted type with compact headline tracking.",
+      "Flat, spacious surfaces punctuated by cobalt and charcoal sections.",
+      "Rounded panels, pill actions, circular SVG arrow controls, and fine list dividers."
+    ],
+    "rules": [
+      {
+        "name": "The Single Accent Rule",
+        "body": "Use cobalt for brand emphasis; preserve the neutral reading surfaces and contextual inverse text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Material Depth Rule",
+        "body": "Keep surrounding layout surfaces flat so the sculptural image supplies the material contrast.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use the same Manrope family and established responsive hierarchy.",
+      "Do balance oversized headlines with generous whitespace and readable supporting text.",
+      "Do preserve keyboard focus, visible navigation, native disclosure behavior, and reduced-motion support.",
+      "Do establish trust through factual commitments and named responsibility."
+    ],
+    "donts": [
+      "Don't invent client logos, testimonials, project results, or agency scale.",
+      "Don't add drop shadows to the flat marketing panels.",
+      "Don't promote one-off artwork annotations into a reusable heading or badge system."
+    ]
+  }
+}

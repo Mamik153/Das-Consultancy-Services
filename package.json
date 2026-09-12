@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test --disable-warning=MODULE_TYPELESS_PACKAGE_JSON \"lib/*.test.mts\""
+    "test": "node --test --disable-warning=MODULE_TYPELESS_PACKAGE_JSON \"lib/*.test.mts\" scripts/check-contact.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

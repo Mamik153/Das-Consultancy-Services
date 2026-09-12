@@ -1,62 +1,14 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { site } from "@/site.config";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t">
-      <div className="mx-auto grid max-w-5xl gap-8 px-4 py-12 sm:grid-cols-3 sm:px-6">
-        <div className="sm:col-span-1">
-          <p className="font-semibold tracking-tight">{site.name}</p>
-          <p className="mt-2 text-sm text-muted-foreground">{site.tagline}</p>
-        </div>
-
-        <nav aria-label="Services" className="text-sm">
-          <h2 className="font-medium">Services</h2>
-          <ul className="mt-3 space-y-2">
-            {site.services.map((s) => (
-              <li key={s.slug}>
-                <Link
-                  href={`/services#${s.slug}`}
-                  className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {s.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="text-sm">
-          <h2 className="font-medium">Get in touch</h2>
-          <ul className="mt-3 space-y-2 text-muted-foreground">
-            <li>
-              <Link href="/contact" className="transition-colors hover:text-foreground">
-                Start an enquiry
-              </Link>
-            </li>
-            <li>
-              <a
-                href={`mailto:${site.email}`}
-                className="transition-colors hover:text-foreground"
-              >
-                {site.email}
-              </a>
-            </li>
-            <li>
-              <Link href="/about" className="transition-colors hover:text-foreground">
-                About {site.founder}
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="border-t">
-        <p className="mx-auto max-w-5xl px-4 py-6 text-xs text-muted-foreground sm:px-6">
-          {/* No year: pages are statically built, so a year here freezes at
-              build time and silently goes stale on an undeployed site. */}
-          © {site.legalName}. All rights reserved.
-        </p>
+    <footer className="site-footer">
+      <div className="page-shell">
+        <div className="footer-invitation"><h2>Something in mind?<br /><span>Let’s make it real.</span></h2><Link href="/contact" className="footer-arrow" aria-label="Start a project enquiry"><ArrowUpRight aria-hidden="true" /></Link></div>
+        <div className="footer-contact"><p>A short description is all it takes to start.<br />We’ll get back to you within one business day.</p><Link href="/contact">Start a conversation<ArrowUpRight size={20} aria-hidden="true" /></Link></div>
+        <div className="footer-bottom"><Link href="/" className="wordmark" aria-label={site.name}>das<span>.</span></Link><p>© {site.legalName}</p><nav aria-label="Footer"><Link href="/services">Expertise</Link><Link href="/about">About</Link><Link href="/contact">Contact</Link></nav><div className="footer-policies"><Link href="/legal">Legal & privacy</Link><Link href="/terms">Terms & conditions</Link></div><a href="#main" className="back-top">Back to top <ArrowUpRight size={16} aria-hidden="true" /></a></div>
       </div>
     </footer>
   );

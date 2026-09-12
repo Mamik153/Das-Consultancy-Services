@@ -42,8 +42,8 @@ export default function AboutPage() {
     <>
       <JsonLd data={graph(breadcrumbSchema([{ name: "About", path: "/about" }]))} />
 
-      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
-        <h1 className="text-4xl font-semibold tracking-tight text-balance">
+      <section className="interior-page mx-auto max-w-3xl px-6">
+        <h1 className="text-5xl font-normal tracking-tight text-balance sm:text-7xl">
           About {site.name}
         </h1>
         <p className="mt-6 text-lg text-muted-foreground text-pretty">{description}</p>

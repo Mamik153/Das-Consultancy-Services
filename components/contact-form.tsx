@@ -1,8 +1,9 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
-import { toast } from "sonner";
+import Link from "next/link";
+import { Check, LoaderCircle, ArrowUpRight } from "lucide-react";
 import { submitEnquiry } from "@/app/contact/actions";
 import type { ContactState } from "@/lib/contact-schema";
 import { Button } from "@/components/ui/button";
@@ -13,8 +14,10 @@ import { Textarea } from "@/components/ui/textarea";
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" size="lg" disabled={pending}>
+    <Button type="submit" size="lg" disabled={pending} className="enquiry-submit">
+      {pending ? <LoaderCircle className="sending-spinner" size={18} aria-hidden="true" /> : null}
       {pending ? "Sending…" : "Send enquiry"}
+      {!pending && <ArrowUpRight size={18} aria-hidden="true" />}
     </Button>
   );
 }
@@ -29,90 +32,98 @@ function FieldError({ id, errors }: { id: string; errors?: string[] }) {
 }
 
 export function ContactForm() {
-  const [state, action] = useActionState<ContactState, FormData>(submitEnquiry, {
-    status: "idle",
-  });
-  const formRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    if (state.status === "ok") {
-      toast.success("Enquiry sent. You will hear back within one business day.");
-      formRef.current?.reset();
-    } else if (state.status === "error") {
-      toast.error(state.message);
+  const [values, setValues] = useState({ name: "", email: "", company: "", message: "" });
+  const [state, action, pending] = useActionState<ContactState, FormData>(async (previous, data) => {
+    try {
+      const result = await submitEnquiry(previous, data);
+      if (result.status === "ok") setValues({ name: "", email: "", company: "", message: "" });
+      return result;
+    } catch {
+      return { status: "error", message: "We couldn’t connect. Your message is still here; please try again." };
     }
-  }, [state]);
+  }, { status: "idle" });
 
   const errors = state.status === "error" ? state.fieldErrors : undefined;
 
   return (
-    <form ref={formRef} action={action} className="space-y-6" noValidate>
-      {/* Screen readers get the result even though the visual cue is a toast. */}
-      <p aria-live="polite" className="sr-only">
-        {state.status === "ok"
-          ? "Enquiry sent."
-          : state.status === "error"
-            ? state.message
-            : ""}
-      </p>
+    <form action={action} className="contact-form space-y-6" noValidate>
+      <div aria-live="polite" aria-atomic="true">
+        {state.status === "ok" && <div className="form-result form-success">
+          <span className="t-success-check" data-state="in" aria-hidden="true"><Check size={24} /></span>
+          <div><strong>Enquiry sent.</strong><p>Thanks for reaching out. We’ll reply within one business day.</p></div>
+        </div>}
+        {state.status === "error" && <p className="form-result form-error">{state.message}</p>}
+      </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="name">Name</Label>
-          <Input
-            id="name"
-            name="name"
-            autoComplete="name"
-            required
-            aria-invalid={!!errors?.name}
-            aria-describedby={errors?.name ? "name-error" : undefined}
-          />
-          <FieldError id="name-error" errors={errors?.name} />
+      <fieldset disabled={pending} className="space-y-6">
+        <div className="grid gap-6 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="name">Name</Label>
+            <Input
+              id="name"
+              name="name"
+              maxLength={100}
+              value={values.name}
+              onChange={(event) => setValues({ ...values, name: event.target.value })}
+              autoComplete="name"
+              required
+              aria-invalid={!!errors?.name}
+              aria-describedby={errors?.name ? "name-error" : undefined}
+            />
+            <FieldError id="name-error" errors={errors?.name} />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              maxLength={254}
+              value={values.email}
+              onChange={(event) => setValues({ ...values, email: event.target.value })}
+              type="email"
+              autoComplete="email"
+              required
+              aria-invalid={!!errors?.email}
+              aria-describedby={errors?.email ? "email-error" : undefined}
+            />
+            <FieldError id="email-error" errors={errors?.email} />
+          </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            aria-invalid={!!errors?.email}
-            aria-describedby={errors?.email ? "email-error" : undefined}
-          />
-          <FieldError id="email-error" errors={errors?.email} />
+          <Label htmlFor="company">
+            Company <span className="text-muted-foreground">(optional)</span>
+          </Label>
+          <Input id="company" name="company" autoComplete="organization" maxLength={200} value={values.company} onChange={(event) => setValues({ ...values, company: event.target.value })} />
         </div>
-      </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="company">
-          Company <span className="text-muted-foreground">(optional)</span>
-        </Label>
-        <Input id="company" name="company" autoComplete="organization" />
-      </div>
+        <div className="space-y-2">
+          <Label htmlFor="message">What are you trying to build or fix?</Label>
+          <Textarea
+            id="message"
+            name="message"
+            maxLength={5000}
+            value={values.message}
+            onChange={(event) => setValues({ ...values, message: event.target.value })}
+            rows={6}
+            required
+            placeholder="A few sentences on the problem, where the project is now, and any deadline you're working to."
+            aria-invalid={!!errors?.message}
+            aria-describedby={errors?.message ? "message-error" : undefined}
+          />
+          <FieldError id="message-error" errors={errors?.message} />
+        </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="message">What are you trying to build or fix?</Label>
-        <Textarea
-          id="message"
-          name="message"
-          rows={6}
-          required
-          placeholder="A few sentences on the problem, where the project is now, and any deadline you're working to."
-          aria-invalid={!!errors?.message}
-          aria-describedby={errors?.message ? "message-error" : undefined}
-        />
-        <FieldError id="message-error" errors={errors?.message} />
-      </div>
+        {/* Honeypot. Hidden from sight and from assistive tech; bots fill it in
+            and get silently dropped server-side. */}
+        <div className="hidden" aria-hidden="true">
+          <label htmlFor="website">Leave this field empty</label>
+          <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+        </div>
 
-      {/* Honeypot. Hidden from sight and from assistive tech; bots fill it in
-          and get silently dropped server-side. */}
-      <div className="hidden" aria-hidden="true">
-        <label htmlFor="website">Leave this field empty</label>
-        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
-      </div>
-
+      </fieldset>
+      <p className="form-privacy">We use your details to respond to this enquiry. Read our <Link href="/legal#privacy">privacy notice</Link> before sending. Please don’t include passwords or sensitive personal information.</p>
       <SubmitButton />
     </form>
   );

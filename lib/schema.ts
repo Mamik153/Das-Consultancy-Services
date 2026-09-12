@@ -10,7 +10,6 @@ export const organizationSchema = {
   name: site.name,
   legalName: site.legalName,
   url: site.url,
-  email: site.email,
   description: site.description,
   slogan: site.tagline,
   logo: `${site.url}/icon.svg`,
@@ -21,7 +20,6 @@ export const organizationSchema = {
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "sales",
-    email: site.email,
     url: `${site.url}/contact`,
     availableLanguage: "English",
   },

@@ -18,7 +18,7 @@ export function GET() {
 
 ${site.description}
 
-Contact: ${site.email}
+Contact: ${site.url}/contact
 Website: ${site.url}
 
 ## Services
@@ -35,8 +35,11 @@ ${site.faqs.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
 
 - [Home](${site.url}/): Overview of services and how engagements work.
 - [Services](${site.url}/services): Detailed description of each engagement type.
+${site.services.map((service) => `- [${service.title}](${site.url}/services/${service.slug}): ${service.promise}`).join("\n")}
+- [Legal & privacy](${site.url}/legal): Website operator and enquiry privacy notice.
+- [Terms & conditions](${site.url}/terms): Website use and engagement terms.
 - [About](${site.url}/about): Who runs the consultancy and how it operates.
-- [Contact](${site.url}/contact): Enquiry form and direct email address.
+- [Contact](${site.url}/contact): Private enquiry form.
 `;
 
   return new Response(body, {

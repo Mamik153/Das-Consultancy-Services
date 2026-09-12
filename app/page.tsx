@@ -1,149 +1,88 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { faqSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
+
+const serviceNotes = ["From first idea to first release.", "Clarity before your next big move.", "A fresh start for a stalled build.", "A technical partner in your corner."];
+const steps = [
+  { number: "01", title: "Find the right problem.", detail: "We start with a paid, one-to-two hour discovery session. Your goals, your constraints, and a shared definition of done.", deliverable: "A clear direction" },
+  { number: "02", title: "Make the plan explicit.", detail: "You get a written scope, a fixed price, and a delivery date. We agree on what is included before a line of code is written.", deliverable: "A scope you can rely on" },
+  { number: "03", title: "Build. Show. Improve.", detail: "Working software, demonstrated every week. You can stop at any week boundary and keep everything built so far.", deliverable: "Progress you can see" },
+];
 
 export default function Home() {
   return (
     <>
       <JsonLd data={graph(faqSchema)} />
-
-      {/* Answer-first hero: the h1 and the paragraph beneath it together answer
-          "what is this company and what does it do" with no other context.
-          That pairing is what answer engines extract and quote. */}
-      <section className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28">
-        <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-          {site.tagline}
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg text-muted-foreground text-pretty">
-          {site.description}
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button render={<Link href="/contact" />} size="lg" className="px-5">
-            Start an enquiry
-          </Button>
-          <Button
-            render={<Link href="/services" />}
-            size="lg"
-            variant="outline"
-            className="px-5"
-          >
-            See what we do
-          </Button>
-        </div>
-      </section>
-
-      <section
-        aria-labelledby="services-heading"
-        className="border-t bg-muted/30 py-20 sm:py-24"
-      >
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <h2 id="services-heading" className="text-3xl font-semibold tracking-tight">
-            How we work with you
-          </h2>
-          <p className="mt-4 max-w-2xl text-muted-foreground">
-            Four ways to engage. Each one is scoped and priced in writing before any
-            work begins.
-          </p>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2">
-            {site.services.map((s) => (
-              <Card key={s.slug} className="bg-background">
-                <CardHeader>
-                  <CardTitle className="text-xl">
-                    <Link href={`/services#${s.slug}`} className="hover:underline">
-                      {s.title}
-                    </Link>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{s.summary}</p>
-                </CardContent>
-              </Card>
-            ))}
+      <section className="hero page-shell" aria-labelledby="hero-title">
+        <div className="hero-copy">
+          <h1 id="hero-title">Big ambition.<br />Thoughtful<br /><span>engineering.</span></h1>
+          <div className="hero-bottom">
+            <p>We turn your next big idea into software that works. An independent engineering partner for founders ready to build something that lasts.</p>
+            <Link className="pill-button dark-button" href="/contact">Let’s build together <ArrowUpRight aria-hidden="true" size={20} /></Link>
+            <span className="hero-note">Direct collaboration. Clear commitments.</span>
           </div>
         </div>
+        <div className="hero-art">
+          <Image src="/images/precision-sculpture.webp" alt="" fill sizes="(max-width: 760px) 100vw, 43vw" preload className="sculpture" />
+          <div className="art-top"><span>Considered by design.</span><span>Built to last.</span></div>
+          <div className="art-bottom"><span>Strong foundations.<br />Extraordinary possibilities.</span><a href="#approach" className="round-link" aria-label="Explore our approach"><ArrowDown size={27} aria-hidden="true" /></a></div>
+        </div>
       </section>
 
-      <section aria-labelledby="how-heading" className="py-20 sm:py-24">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <h2 id="how-heading" className="text-3xl font-semibold tracking-tight">
-            What an engagement looks like
-          </h2>
-          <ol className="mt-10 grid gap-8 sm:grid-cols-3">
-            {[
-              {
-                step: "01",
-                title: "Discovery",
-                body: "A paid one-to-two hour session where we work through the problem, the constraints, and what success actually means.",
-              },
-              {
-                step: "02",
-                title: "Written scope",
-                body: "You get a fixed price, a delivery date, and an explicit list of what is and is not included. Nothing starts until you sign it.",
-              },
-              {
-                step: "03",
-                title: "Weekly delivery",
-                body: "Work ships in weekly increments with a demo at the end of each one. You can stop at any week boundary and keep everything built so far.",
-              },
-            ].map((s) => (
-              <li key={s.step}>
-                <span className="font-mono text-sm text-muted-foreground">{s.step}</span>
-                <h3 className="mt-2 text-lg font-medium">{s.title}</h3>
-                <p className="mt-2 text-muted-foreground">{s.body}</p>
+      <div className="trust-strip page-shell" aria-label="Our commitments">
+        <p>A good partnership starts<br /><strong>with peace of mind.</strong></p>
+        <span><Check aria-hidden="true" /> Fixed scope, agreed upfront</span>
+        <span><Check aria-hidden="true" /> Working software, every week</span>
+        <span><Check aria-hidden="true" /> Your code. Your ownership.</span>
+      </div>
+
+      <section className="services-section page-shell" id="services" aria-labelledby="services-title">
+        <div className="section-intro">
+          <h2 id="services-title">The right expertise.<br /><span>Right when you need it.</span></h2>
+          <p>From a blank canvas to a complex codebase. We meet you where you are and take responsibility for what comes next.</p>
+        </div>
+        <div className="service-list">
+          {site.services.map((service, index) => (
+            <Link href={`/services/${service.slug}`} className="service-row" key={service.slug}>
+              <h3>{service.title}</h3>
+              <p>{serviceNotes[index]}</p>
+              <span className="service-arrow"><ArrowUpRight aria-hidden="true" /></span>
+            </Link>
+          ))}
+        </div>
+        <div className="technology-line"><span>Built with tools your next team will know.</span><p>TypeScript <span>/</span> React <span>/</span> Next.js <span>/</span> Python <span>/</span> Postgres</p></div>
+      </section>
+
+      <section className="approach-section" id="approach" aria-labelledby="approach-title">
+        <div className="page-shell">
+          <div className="section-intro">
+            <h2 id="approach-title">Good software.<br /><span>No guesswork.</span></h2>
+            <p>You shouldn’t need to chase an update or wonder what you’re paying for. Here’s how we keep the work clear, visible, and yours.</p>
+          </div>
+          <ol className="process-list">
+            {steps.map((step) => (
+              <li key={step.number}>
+                <div className="step-top"><span>{step.number}</span><ArrowDownRight aria-hidden="true" size={30} /></div>
+                <h3>{step.title}</h3><p>{step.detail}</p>
+                <div className="deliverable"><Check aria-hidden="true" size={16} />{step.deliverable}</div>
               </li>
             ))}
           </ol>
+          <div className="ownership-note"><span>From day one</span><p>Your repository.<br />Your intellectual property.<br /><span>Your freedom to move forward.</span></p><ArrowUpRight aria-hidden="true" /></div>
         </div>
       </section>
 
-      {/* FAQ uses native <details> — no JS, keyboard-accessible for free, and
-          the answers are complete sentences so they survive being quoted in
-          isolation. Mirrored into FAQPage JSON-LD above. */}
-      <section
-        aria-labelledby="faq-heading"
-        className="border-t bg-muted/30 py-20 sm:py-24"
-      >
-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <h2 id="faq-heading" className="text-3xl font-semibold tracking-tight">
-            Frequently asked questions
-          </h2>
-          <div className="mt-10 border-y divide-y">
-            {site.faqs.map((f) => (
-              <details key={f.q} className="group py-4">
-                <summary className="cursor-pointer list-none font-medium marker:content-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none">
-                  <span className="flex items-start justify-between gap-4">
-                    {f.q}
-                    <span
-                      aria-hidden
-                      className="mt-1 shrink-0 text-muted-foreground transition-transform group-open:rotate-45"
-                    >
-                      +
-                    </span>
-                  </span>
-                </summary>
-                <p className="mt-3 text-muted-foreground">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
+      <section className="partner-section page-shell" aria-labelledby="partner-title">
+        <div className="partner-panel"><span className="partner-name">{site.name}</span><p>Small by choice.<br />Accountable<br />by name.</p><div className="founder-signoff"><div className="founder-initials" aria-hidden="true">md.</div><div><strong>{site.founder}</strong><span>Founder & engineering partner</span></div><ArrowUpRight aria-hidden="true" /></div></div>
+        <div className="partner-copy"><h2 id="partner-title">A partner.<br /><span>Not a hand-off.</span></h2><p>You talk to the person building your product. Mamik leads every engagement personally, from the first conversation to the final handover.</p><p>We keep our commitments focused so your project gets the attention it deserves. Honest advice, well-understood technology, and software your team can maintain.</p><Link href="/about" className="text-link">Meet your engineering partner <ArrowUpRight aria-hidden="true" size={20} /></Link></div>
       </section>
 
-      <section className="py-20 sm:py-24">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-          <h2 className="text-3xl font-semibold tracking-tight text-balance">
-            Tell us what you are trying to ship
-          </h2>
-          <p className="mt-4 text-muted-foreground text-pretty">
-            A short description of the problem is enough to start. You will get a reply
-            within one business day.
-          </p>
-          <Button render={<Link href="/contact" />} size="lg" className="mt-8 px-5">
-            Start an enquiry
-          </Button>
-        </div>
+      <section className="faq-section page-shell" aria-labelledby="faq-title">
+        <div className="faq-intro"><h2 id="faq-title">Good questions.<br /><span>Straight answers.</span></h2><p>Something else on your mind?</p><Link href="/contact" className="text-link">Let’s talk <ArrowRight aria-hidden="true" size={18} /></Link></div>
+        <div className="faq-list">{site.faqs.map((faq) => (<details key={faq.q}><summary>{faq.q}<Plus size={20} aria-hidden="true" /></summary><p>{faq.a}</p></details>))}</div>
       </section>
     </>
   );

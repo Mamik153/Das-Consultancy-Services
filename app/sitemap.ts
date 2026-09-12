@@ -9,6 +9,7 @@ const routes = [
   { path: "/legal", priority: 0.3, changeFrequency: "yearly" },
   { path: "/terms", priority: 0.3, changeFrequency: "yearly" },
   { path: "/about", priority: 0.7, changeFrequency: "yearly" },
+  { path: "/team", priority: 0.7, changeFrequency: "monthly" },
   { path: "/contact", priority: 0.8, changeFrequency: "yearly" },
 ] as const satisfies readonly {
   path: string;

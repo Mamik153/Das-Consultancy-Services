@@ -11,6 +11,7 @@ export function SiteHeader() {
           <Link href="/services">Expertise</Link>
           <Link href="/#approach">Our approach</Link>
           <Link href="/about">About us</Link>
+          <Link href="/team">Team</Link>
         </nav>
         <Link href="/contact" className="pill-button header-cta">Let’s talk <ArrowUpRight size={18} aria-hidden="true" /></Link>
       </div>

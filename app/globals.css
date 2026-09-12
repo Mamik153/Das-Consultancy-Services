@@ -151,7 +151,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .wordmark { display: inline-flex; align-items: center; font-size: 54px; font-weight: 650; line-height: 1; letter-spacing: -.04em; }
 .wordmark > span:first-child { color: var(--agency-blue); }
 .wordmark .wordmark-description { margin-left: 15px; padding-left: 15px; border-left: 1px solid #d3d4d7; color: var(--agency-ink); font-size: 12px; font-weight: 450; letter-spacing: -.01em; line-height: 1.3; }
-.main-nav { display: flex; gap: 34px; font-size: 14px; }
+.main-nav { display: flex; gap: 28px; font-size: 14px; }
 .main-nav a { padding-block: 12px; }
 .main-nav a:hover { color: var(--agency-blue); }
 .pill-button { display: inline-flex; align-items: center; justify-content: space-between; gap: 32px; min-height: 54px; padding: 15px 24px; border-radius: 999px; font-size: 14px; font-weight: 500; }
@@ -483,4 +483,35 @@ h2 { text-wrap: balance; }
   .legal-content p { font-size: 15px; }
   .footer-policies { grid-column: 1 / -1; grid-row: 3; }
   .footer-bottom p { grid-row: 4; }
+}
+
+/* Team profiles use the existing portrait-panel and editorial type system. */
+.team-page { padding-block: 76px 100px; }
+.team-intro { display: grid; grid-template-columns: 1.4fr 1fr; align-items: end; gap: 60px; margin-bottom: 64px; }
+.team-intro h1 { font-size: clamp(42px, 6vw, 76px); font-weight: 450; line-height: 1.06; letter-spacing: -.04em; }
+.team-intro h1 span { color: var(--agency-blue); }
+.team-intro p { max-width: 400px; color: var(--agency-muted); font-size: 17px; line-height: 1.65; margin-bottom: 24px; }
+.team-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.team-portrait { aspect-ratio: 4 / 5; position: relative; overflow: hidden; border-radius: 28px; background: var(--agency-paper); display: grid; place-items: center; color: var(--agency-muted); }
+.team-portrait-named { background: var(--agency-blue); color: white; }
+.team-portrait img { object-fit: cover; }
+.team-monogram { font-size: clamp(64px, 8vw, 112px); font-weight: 450; letter-spacing: -.04em; }
+.team-portrait > span { position: absolute; bottom: 28px; font-size: 13px; }
+.team-member-copy { padding: 26px 4px 0; }
+.team-member h2 { font-size: clamp(25px, 2.6vw, 38px); font-weight: 450; line-height: 1.15; letter-spacing: -.03em; }
+.team-role { color: var(--agency-blue); font-size: 14px; margin-top: 10px; }
+.team-bio { color: var(--agency-muted); font-size: 15px; line-height: 1.7; margin-top: 20px; max-width: 42ch; }
+.team-about { display: flex; justify-content: space-between; align-items: center; gap: 24px; border-top: 1px solid #d8d9dc; padding-top: 32px; margin-top: 70px; }
+.team-about p { font-size: 18px; }
+@media (max-width: 760px) {
+  .main-nav { gap: clamp(14px, 4vw, 30px); }
+  .footer-bottom nav { flex-wrap: wrap; gap: 12px 18px; }
+  .team-page { padding-block: 50px 64px; }
+  .team-intro { grid-template-columns: 1fr; gap: 28px; margin-bottom: 40px; }
+  .team-intro p { font-size: 16px; }
+  .team-list { grid-template-columns: 1fr; gap: 42px; }
+  .team-portrait { border-radius: 22px; aspect-ratio: 1; }
+  .team-monogram { font-size: 96px; }
+  .team-member h2 { font-size: 32px; }
+  .team-about { flex-direction: column; align-items: start; margin-top: 48px; }
 }

@@ -39,6 +39,7 @@ ${site.services.map((service) => `- [${service.title}](${site.url}/services/${se
 - [Legal & privacy](${site.url}/legal): Website operator and enquiry privacy notice.
 - [Terms & conditions](${site.url}/terms): Website use and engagement terms.
 - [About](${site.url}/about): Who runs the consultancy and how it operates.
+- [Team](${site.url}/team): Meet the people behind the consultancy.
 - [Contact](${site.url}/contact): Private enquiry form.
 `;
 

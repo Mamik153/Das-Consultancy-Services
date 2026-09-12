@@ -37,6 +37,13 @@ export const site = {
     // "https://github.com/...",
   ] as string[],
 
+  // Add real member details here; portrait paths point to files in public/.
+  team: [
+    { name: "Mamik Das", role: "Founder · Software engineer", bio: "Leads the consultancy and works directly with founders and engineering teams, from the first conversation through delivery.", portrait: "" },
+    { name: "Aniket Giri", role: "Co-founder · Software engineer", bio: "", portrait: "" },
+    { name: "Sumit Khanna", role: "Co-founder · Software engineer", bio: "", portrait: "" },
+  ],
+
   services: [
     {
       slug: "product-engineering",

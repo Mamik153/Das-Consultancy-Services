@@ -67,6 +67,7 @@ export default function AboutPage() {
             concurrent engagements, honest answers about availability, and a
             willingness to tell you when a problem is not a good fit for us.
           </p>
+          <Link href="/team" className="text-link">Meet the team</Link>
         </div>
 
         <div className="mt-16">

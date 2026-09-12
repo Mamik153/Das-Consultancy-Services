@@ -21,6 +21,17 @@ In priority order:
    website drafts for India; paid work is governed by a separate written agreement.
 6. **`app/about/page.tsx`** — two `TODO` blocks of placeholder biography.
 
+## Team profiles
+
+Edit the three entries in `site.team` in `site.config.ts`: `name`, `role`, `bio`,
+and `portrait`. Mamik Das is Founder; Aniket Giri and Sumit Khanna are Co-founders.
+All three also carry the title “Software engineer”. Empty bios are omitted. A blank `name` shows an honest
+coming-soon introduction. Do not invent people or credentials.
+
+For portraits, add a file such as `public/images/team/name.webp` and set
+`portrait` to `/images/team/name.webp`. Leave it blank to use the initials or
+placeholder icon.
+
 ## Commands
 
 ```bash
@@ -94,7 +105,7 @@ connected systems, not a client project.”
 
 ## Visual verification
 
-With the dev server running, `scripts/check-ui.mjs` checks all ten pages at
+With the dev server running, `scripts/check-ui.mjs` checks all eleven pages at
 1440, 390, and 320 pixels, horizontal overflow, navigation, native FAQ keyboard
 interaction, enquiry validation, network-failure message retention, success feedback,
 reduced motion, sitemap entries, and browser errors. It uses a fresh headless

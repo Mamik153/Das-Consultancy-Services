@@ -16,7 +16,7 @@ try {
     const page = await browser.newPage({ viewport: { width, height: 1000 }, reducedMotion: "reduce" });
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
-    for (const route of ["/", "/services", "/services/product-engineering", "/services/architecture-review", "/services/project-rescue", "/services/technical-advisory", "/about", "/contact", "/legal", "/terms"]) {
+    for (const route of ["/", "/services", "/services/product-engineering", "/services/architecture-review", "/services/project-rescue", "/services/technical-advisory", "/about", "/team", "/contact", "/legal", "/terms"]) {
       const response = await page.goto(base + route);
       assert.equal(response.status(), 200, route);
       assert.doesNotMatch(await response.text(), /mailto:|mamik@|CONTACT_TO_EMAIL|CONTACT_FROM_EMAIL|re_test_only/);
@@ -25,6 +25,11 @@ try {
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
       assert.equal(overflow, false, `${route}: horizontal overflow at ${width}px`);
       if (width !== 320) await page.screenshot({ path: `.impeccable/screenshots/${width}-${route === "/" ? "home" : route.slice(1).replaceAll("/", "-")}.png`, fullPage: true });
+      if (route === "/team") {
+        assert.equal(await page.locator(".team-member").count(), 3);
+        assert.equal(await page.getByRole("navigation", { name: "Main", exact: true }).getByRole("link", { name: "Team", exact: true }).count(), 1);
+        assert.match(await page.locator('link[rel="canonical"]').getAttribute("href"), /\/team$/);
+      }
       if (route === "/") {
         await page.locator(".hero").screenshot({path: `.impeccable/screenshots/${width}-hero.png`});
         const faq = page.locator(".faq-list details").first();
@@ -71,7 +76,7 @@ try {
       const response = await page.request.get(base + route);
       const content = await response.text();
       assert.doesNotMatch(content, /mailto:|mamik@/);
-      for (const path of ["/legal", "/terms", "/services/product-engineering", "/services/architecture-review", "/services/project-rescue", "/services/technical-advisory"]) assert.ok(content.includes(path), `${route} missing ${path}`);
+      for (const path of ["/team", "/legal", "/terms", "/services/product-engineering", "/services/architecture-review", "/services/project-rescue", "/services/technical-advisory"]) assert.ok(content.includes(path), `${route} missing ${path}`);
     }
     // Confirm reduced motion removes transitions, and ordinary motion is present.
     await page.goto(base);

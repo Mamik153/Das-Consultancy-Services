@@ -18,7 +18,7 @@ export const site = {
 
   // TODO: set NEXT_PUBLIC_SITE_URL in .env.local and in Vercel project settings.
   // The fallback is only here so `pnpm build` works before the domain is bought.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://example.com",
 
   // One line. Shown in the hero, used as the default meta description seed.
   tagline: "Software consultancy for teams that need working software, shipped.",

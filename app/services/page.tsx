@@ -27,7 +27,7 @@ export default function ServicesPage() {
         )}
       />
 
-      <section className="interior-page mx-auto max-w-3xl px-6">
+      <section className="interior-page mx-auto max-w-3xl px-6" data-motion-group>
         <h1 className="text-5xl font-normal tracking-tight text-balance sm:text-7xl">
           Services
         </h1>
@@ -38,7 +38,7 @@ export default function ServicesPage() {
         {site.services.map((s) => (
           // scroll-mt clears the sticky header when linked to by fragment.
           <section
-            key={s.slug}
+            key={s.slug} data-motion="rise"
             id={s.slug}
             className="scroll-mt-24 border-t py-12 first:border-t-0 first:pt-0"
             aria-labelledby={`${s.slug}-heading`}
@@ -67,7 +67,7 @@ export default function ServicesPage() {
       </div>
 
       <section className="border-t bg-muted/30 py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6" data-motion-group>
           <h2 className="text-2xl font-semibold tracking-tight">Common questions</h2>
           <div className="mt-8 border-y divide-y">
             {site.faqs.map((f) => (

@@ -350,7 +350,7 @@ h2 { text-wrap: balance; }
 }
 
 /* Shared interaction timing: quick feedback, then a gentle settle. */
-:root { --duration-quick: 150ms; --duration-fast: 250ms; --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1); }
+:root { --duration-quick: 150ms; --duration-fast: 250ms; --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1); --reveal-duration: 1000ms; --reveal-stagger: 120ms; --reveal-ease: cubic-bezier(0.25, 0.1, 0.25, 1); }
 .pill-button, .round-link, .footer-arrow, .service-arrow, [data-slot="button"] { transition: background-color var(--duration-fast) var(--ease-smooth-out), color var(--duration-fast) var(--ease-smooth-out), border-color var(--duration-fast) var(--ease-smooth-out), transform var(--duration-quick) var(--ease-smooth-out); }
 .pill-button svg, .round-link svg, .footer-arrow svg, .service-arrow svg, .text-link svg, .related-services svg, .enquiry-submit svg, .back-top svg { transition: transform var(--duration-fast) var(--ease-smooth-out); }
 :is(.pill-button, .footer-arrow, .service-row, .text-link, .related-services a, .enquiry-submit, .back-top):is(:hover, :focus-visible) svg { transform: translate(2px, -2px); }

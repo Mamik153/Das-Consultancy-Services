@@ -20,11 +20,11 @@ export default function TeamPage() {
     <>
       <JsonLd data={graph(breadcrumbSchema([{ name: "Our team", path: "/team" }]))} />
       <section className="team-page page-shell">
-        <header className="team-intro">
+        <header className="team-intro" data-motion-group>
           <h1>The people behind<br /><span>your next build.</span></h1>
           <div><p>Good software starts with a good working relationship. Get to know the people behind Das Software Consultancy.</p><Link href="/contact" className="text-link">Start a conversation <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
         </header>
-        <ul className="team-list" aria-label="Team members">
+        <ul className="team-list" data-motion-group aria-label="Team members">
           {site.team.map((member, index) => (
             <li key={index} className="team-member">
               <div className={`team-portrait${member.name ? " team-portrait-named" : ""}`}>
@@ -39,7 +39,7 @@ export default function TeamPage() {
             </li>
           ))}
         </ul>
-        <div className="team-about"><p>Curious about how we work together?</p><Link href="/about" className="text-link">Our approach to partnership <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
+        <div className="team-about" data-motion="rise"><p>Curious about how we work together?</p><Link href="/about" className="text-link">Our approach to partnership <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
       </section>
     </>
   );

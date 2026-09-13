@@ -35,14 +35,14 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       )} />
       <article className="service-detail page-shell">
         <Link className="text-link" href="/services"><ArrowLeft size={17} aria-hidden="true" /> All expertise</Link>
-        <div className="service-detail-hero">
+        <div className="service-detail-hero" data-motion-group>
           <div><h1>{service.title}</h1><p>{service.summary}</p><Link className="pill-button dark-button" href="/contact">Discuss your project <ArrowUpRight size={20} aria-hidden="true" /></Link></div>
-          <aside className="service-promise"><h2>{service.promise}</h2><div><span>{service.engagement}</span><ArrowUpRight size={42} aria-hidden="true" /></div></aside>
+          <aside className="service-promise" data-motion="panel"><h2>{service.promise}</h2><div><span>{service.engagement}</span><ArrowUpRight size={42} aria-hidden="true" /></div></aside>
         </div>
-        <section className="service-fit" aria-labelledby="fit-title"><h2 id="fit-title">A good fit<br />if this is you.</h2><ul>{service.fit.map((item) => <li key={item}><Check size={20} aria-hidden="true" />{item}</li>)}</ul></section>
-        <section className="service-steps" aria-labelledby="steps-title"><h2 id="steps-title">How we get there.</h2><ol>{service.steps.map((step, index) => <li key={step.title}><span className="service-step-number">0{index + 1}</span><h3>{step.title}</h3><p>{step.body}</p></li>)}</ol></section>
-        <section className="service-deliverables" aria-labelledby="deliverables-title"><div><h2 id="deliverables-title">What you<br />walk away with.</h2><p>{service.scopeNote}</p></div><ul>{service.outcomes.map((outcome) => <li key={outcome}><Check size={20} aria-hidden="true" />{outcome}</li>)}</ul></section>
-        <nav className="related-services" aria-label="Explore other services"><h2>A different kind of challenge?</h2>{site.services.filter((item) => item.slug !== slug).map((item) => <Link key={item.slug} href={`/services/${item.slug}`}>{item.title}<ArrowUpRight size={20} aria-hidden="true" /></Link>)}</nav>
+        <section className="service-fit" data-motion-group aria-labelledby="fit-title"><h2 id="fit-title">A good fit<br />if this is you.</h2><ul>{service.fit.map((item) => <li key={item}><Check size={20} aria-hidden="true" />{item}</li>)}</ul></section>
+        <section className="service-steps" data-motion="rise" aria-labelledby="steps-title"><h2 id="steps-title">How we get there.</h2><ol>{service.steps.map((step, index) => <li key={step.title}><span className="service-step-number">0{index + 1}</span><h3>{step.title}</h3><p>{step.body}</p></li>)}</ol></section>
+        <section className="service-deliverables" data-motion-group aria-labelledby="deliverables-title"><div><h2 id="deliverables-title">What you<br />walk away with.</h2><p>{service.scopeNote}</p></div><ul>{service.outcomes.map((outcome) => <li key={outcome}><Check size={20} aria-hidden="true" />{outcome}</li>)}</ul></section>
+        <nav className="related-services" data-motion-group aria-label="Explore other services"><h2>A different kind of challenge?</h2>{site.services.filter((item) => item.slug !== slug).map((item) => <Link key={item.slug} href={`/services/${item.slug}`}>{item.title}<ArrowUpRight size={20} aria-hidden="true" /></Link>)}</nav>
       </article>
     </>
   );

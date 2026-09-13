@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { JsonLd } from "@/components/json-ld";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { SectionMotion } from "@/components/section-motion";
 import { graph, organizationSchema, websiteSchema } from "@/lib/schema";
 import { site } from "@/site.config";
 import "./globals.css";
@@ -79,6 +80,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
           {children}
         </main>
         <SiteFooter />
+        <SectionMotion />
         <Toaster />
       </body>
     </html>

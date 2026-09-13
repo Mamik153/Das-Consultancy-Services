@@ -42,7 +42,7 @@ export default function AboutPage() {
     <>
       <JsonLd data={graph(breadcrumbSchema([{ name: "About", path: "/about" }]))} />
 
-      <section className="interior-page mx-auto max-w-3xl px-6">
+      <section className="interior-page mx-auto max-w-3xl px-6" data-motion-group>
         <h1 className="text-5xl font-normal tracking-tight text-balance sm:text-7xl">
           About {site.name}
         </h1>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import localFont from "next/font/local";
-import { Toaster } from "@/components/ui/sonner";
 import { JsonLd } from "@/components/json-ld";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -10,34 +10,20 @@ import { site } from "@/site.config";
 import "./globals.css";
 
 const manrope = localFont({
-  src: "./fonts/manrope-variable.ttf",
+  src: "./fonts/manrope-variable.woff2",
   variable: "--font-manrope",
   display: "swap",
   weight: "200 800",
 });
 
 export const metadata: Metadata = {
+  ...pageMetadata("Software Engineering & AI Integration", site.description, "/"),
   metadataBase: new URL(site.url),
-  title: { default: `${site.name} — ${site.tagline}`, template: `%s | ${site.name}` },
-  description: site.description,
+  title: { default: `Software Engineering & AI Integration | ${site.name}`, template: `%s | ${site.name}` },
   applicationName: site.name,
-  authors: [{ name: site.founder }],
+  authors: site.team.map(({ name }) => ({ name, url: `${site.url}/team` })),
   creator: site.founder,
   publisher: site.legalName,
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    siteName: site.name,
-    locale: site.locale,
-    url: site.url,
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-  },
   robots: {
     index: true,
     follow: true,
@@ -49,6 +35,7 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION?.trim() || undefined },
   formatDetection: { telephone: false, address: false },
 };
 
@@ -81,7 +68,6 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         </main>
         <SiteFooter />
         <SectionMotion />
-        <Toaster />
       </body>
     </html>
   );

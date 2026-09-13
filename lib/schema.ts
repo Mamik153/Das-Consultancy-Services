@@ -5,17 +5,17 @@ const orgId = `${site.url}/#organization`;
 const siteId = `${site.url}/#website`;
 
 export const organizationSchema = {
-  "@type": "ProfessionalService",
+  "@type": "Organization",
   "@id": orgId,
   name: site.name,
   legalName: site.legalName,
   url: site.url,
   description: site.description,
   slogan: site.tagline,
-  logo: `${site.url}/icon.svg`,
+  logo: `${site.url}/images/dsc-logo.webp`,
   image: `${site.url}/opengraph-image`,
-  founder: { "@type": "Person", name: site.founder },
-  serviceType: site.services.map((s) => s.title),
+  founder: site.team.map((member) => ({ "@type": "Person", name: member.name, jobTitle: member.role, url: `${site.url}/team` })),
+  knowsAbout: site.services.map((s) => s.title),
   ...(site.sameAs.length > 0 && { sameAs: site.sameAs }),
   contactPoint: {
     "@type": "ContactPoint",
@@ -33,6 +33,20 @@ export const websiteSchema = {
   description: site.description,
   inLanguage: site.lang,
   publisher: { "@id": orgId },
+};
+
+export const teamPageSchema = {
+  "@type": "AboutPage",
+  "@id": `${site.url}/team#webpage`,
+  url: `${site.url}/team`,
+  name: `Our team | ${site.name}`,
+  isPartOf: { "@id": siteId },
+  about: { "@id": orgId },
+  mainEntity: site.team.map((member) => ({
+    "@type": "Person", name: member.name, jobTitle: member.role,
+    description: member.bio, knowsAbout: member.expertise,
+    worksFor: { "@id": orgId },
+  })),
 };
 
 export const faqSchema = {

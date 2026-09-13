@@ -1,14 +1,8 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/site.config";
 
-/**
- * AI crawlers listed explicitly rather than left to the `*` rule.
- *
- * A wildcard Allow already permits them, but several of these agents are
- * blocked by default in hosting-provider and CDN bot rules, and an explicit
- * Allow line is the clearest signal that this content is meant to be read and
- * cited. Blocking them is the most common self-inflicted GEO wound.
- */
+// Search and training crawlers have separate purposes. These existing allow
+// rules express crawl permission; hosting/CDN firewall rules must also allow it.
 const aiCrawlers = [
   "GPTBot",
   "OAI-SearchBot",

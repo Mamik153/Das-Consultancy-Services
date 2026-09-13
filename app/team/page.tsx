@@ -1,33 +1,28 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, UserRound } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
-import { breadcrumbSchema, graph } from "@/lib/schema";
+import { breadcrumbSchema, graph, teamPageSchema } from "@/lib/schema";
 import { site } from "@/site.config";
 
-const description = `Meet the people behind ${site.name}, led by founder ${site.founder}.`;
+const description = "Meet founders Mamik Das, Aniket Giri, and Sumit Khanna: software engineers and leaders with hands-on AI integration, product, and engineering experience.";
 
-export const metadata: Metadata = {
-  title: "Our team",
-  description,
-  alternates: { canonical: "/team" },
-  openGraph: { title: `Our team | ${site.name}`, description, url: "/team" },
-};
+export const metadata = pageMetadata("Our team", description, "/team");
 
 export default function TeamPage() {
   return (
     <>
-      <JsonLd data={graph(breadcrumbSchema([{ name: "Our team", path: "/team" }]))} />
+      <JsonLd data={graph(breadcrumbSchema([{ name: "Our team", path: "/team" }]), teamPageSchema)} />
       <section className="team-page page-shell">
         <header className="team-intro" data-motion-group>
           <h1>The people behind<br /><span>your next build.</span></h1>
-          <div><p>Good software starts with a good working relationship. Get to know the people behind Das Software Consultancy.</p><Link href="/contact" className="text-link">Start a conversation <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
+          <div><p>Meet our founding team. Three hands-on engineers with extensive experience building software and integrating AI into products, bringing product expertise, technical leadership, and people management to the same table.</p><Link href="/contact" className="text-link">Start a conversation <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
         </header>
         <ul className="team-list" data-motion-group aria-label="Team members">
           {site.team.map((member, index) => (
             <li key={index} className="team-member">
-              <div className={`team-portrait${member.name ? " team-portrait-named" : ""}`}>
+              <div className={`team-portrait${member.name ? " team-portrait-named" : ""}${!member.portrait ? " team-portrait-monogram" : ""}`}>
                 {member.portrait ? <Image src={member.portrait} alt={member.name ? `Portrait of ${member.name}` : "Team portrait"} fill sizes="(max-width: 760px) 100vw, 33vw" /> : <div className="team-monogram" aria-hidden="true">{member.name ? member.name.split(/\s+/).map((part) => part[0]).slice(0, 2).join("") : <UserRound size={72} strokeWidth={1} />}</div>}
                 {!member.name && <span>Profile coming soon</span>}
               </div>
@@ -35,6 +30,8 @@ export default function TeamPage() {
                 <h2>{member.name || "Meet the team, soon."}</h2>
                 {member.role && <p className="team-role">{member.role}</p>}
                 {member.bio && <p className="team-bio">{member.bio}</p>}
+                <dl className="team-background"><dt>Previous role</dt><dd>{member.previousRole}</dd></dl>
+                <ul className="team-expertise" aria-label={`${member.name}’s expertise`}>{member.expertise.map((skill) => <li key={skill}>{skill}</li>)}</ul>
               </div>
             </li>
           ))}

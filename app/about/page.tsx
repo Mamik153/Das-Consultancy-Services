@@ -1,19 +1,15 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
+import { SculptureMark } from "@/components/sculpture-mark";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
 
 const title = "About";
-const description = `${site.name} is an independent software consultancy founded by ${site.founder}, working directly with founders and engineering leaders on scoped, fixed-price engagements.`;
+const description = "Meet Das Software Consultancy, a founder-led team building software and integrating AI with clear scope, direct communication, and client-owned code.";
 
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: { canonical: "/about" },
-  openGraph: { title: `${title} | ${site.name}`, description, url: "/about" },
-};
+export const metadata = pageMetadata(title, description, "/about");
 
 // TODO: replace these with your real principles once you've run a few
 // engagements — specifics beat generic consultancy language, for readers and
@@ -42,21 +38,32 @@ export default function AboutPage() {
     <>
       <JsonLd data={graph(breadcrumbSchema([{ name: "About", path: "/about" }]))} />
 
-      <section className="interior-page mx-auto max-w-3xl px-6" data-motion-group>
-        <h1 className="text-5xl font-normal tracking-tight text-balance sm:text-7xl">
-          About {site.name}
-        </h1>
-        <p className="mt-6 text-lg text-muted-foreground text-pretty">{description}</p>
+      <div className="about-page page-shell">
+        <header className="about-hero">
+          <div className="about-intro" data-motion-group>
+            <h1 data-motion="headline">About us.<br /><span>Small by choice.</span></h1>
+            <p>{description}</p>
+            <Link href="/team" className="text-link">Meet the team <ArrowUpRight size={20} aria-hidden="true" /></Link>
+          </div>
+          <div className="partner-panel about-founder" data-motion="panel">
+            <SculptureMark />
+            <p>Accountable<br />by name.</p>
+            <div className="founder-signoff">
+              <div className="founder-initials" aria-hidden="true">md.</div>
+              <div><strong>{site.founder}</strong><span>Founder & engineering partner</span></div>
+              <ArrowUpRight aria-hidden="true" />
+            </div>
+          </div>
+        </header>
 
         {/* TODO: rewrite this section in your own words. Include how many years
             you've been building software, the kinds of systems and industries
             you've worked in, and one or two concrete outcomes. Specifics here
             are what make the site credible to a reader and citable by an
             answer engine. */}
-        <div className="mt-12 space-y-6 text-muted-foreground">
-          <h2 className="text-2xl font-semibold tracking-tight text-foreground">
-            Who you work with
-          </h2>
+        <section className="about-partnership" aria-labelledby="partnership-title" data-motion-group>
+          <h2 id="partnership-title">Who you<br /><span>work with.</span></h2>
+          <div>
           <p>
             {site.name} is run by {site.founder}. Engagements are led personally —
             you talk to the person writing the code, not an account manager who
@@ -67,35 +74,35 @@ export default function AboutPage() {
             concurrent engagements, honest answers about availability, and a
             willingness to tell you when a problem is not a good fit for us.
           </p>
-          <Link href="/team" className="text-link">Meet the team</Link>
-        </div>
+          </div>
+        </section>
 
-        <div className="mt-16">
-          <h2 className="text-2xl font-semibold tracking-tight">How we operate</h2>
-          <dl className="mt-8 space-y-8">
+        <section className="about-principles" aria-labelledby="principles-title">
+          <h2 id="principles-title" data-motion="rise">How we <span>operate.</span></h2>
+          <dl data-motion-group>
             {principles.map((p) => (
               <div key={p.title}>
-                <dt className="font-medium">{p.title}</dt>
-                <dd className="mt-2 text-muted-foreground">{p.body}</dd>
+                <dt>{p.title}</dt>
+                <dd>{p.body}</dd>
               </div>
             ))}
           </dl>
-        </div>
+        </section>
 
-        <div className="mt-16 rounded-xl border p-8">
-          <h2 className="text-xl font-semibold tracking-tight">
-            Think we might be a fit?
+        <section className="about-invitation" aria-labelledby="invitation-title" data-motion-group>
+          <h2 id="invitation-title">
+            Think we might<br /><span>be a fit?</span>
           </h2>
-          <p className="mt-3 text-muted-foreground">
+          <div><p>
             Send over a short description of what you are building. If it is not
             something we should take on, we will say so and point you somewhere
             better.
           </p>
-          <Button render={<Link href="/contact" />} size="lg" className="mt-6 px-5">
-            Start an enquiry
-          </Button>
-        </div>
-      </section>
+          <Link href="/contact" className="pill-button dark-button">
+            Start an enquiry <ArrowUpRight size={20} aria-hidden="true" />
+          </Link></div>
+        </section>
+      </div>
     </>
   );
 }

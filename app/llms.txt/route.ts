@@ -1,8 +1,8 @@
 import { site } from "@/site.config";
 
 /**
- * /llms.txt — the emerging convention for telling language models what a site
- * is and where its substantive content lives.
+ * Optional human-readable site index; not a search-engine requirement or a
+ * guarantee of inclusion in AI answers.
  *
  * Generated from site.config.ts so it cannot drift from the pages.
  * Spec: https://llmstxt.org
@@ -20,6 +20,10 @@ ${site.description}
 
 Contact: ${site.url}/contact
 Website: ${site.url}
+
+## Founding team
+
+${site.team.map((member) => `### ${member.name} — ${member.role}\n\n${member.bio}`).join("\n\n")}
 
 ## Services
 

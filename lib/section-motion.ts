@@ -38,8 +38,9 @@ export function observeSectionMotion() {
     }, { threshold: 0, rootMargin: "0px 0px -24px 0px" });
 
     document.querySelectorAll<HTMLElement>("[data-motion], [data-motion-group] > *").forEach((element) => {
-      // Restored scroll positions and focused controls must stay immediately readable.
-      if (element.getBoundingClientRect().bottom <= 0 || element.contains(document.activeElement)) return;
+      // Never hide content already visible at hydration, including the LCP image.
+      // Below-fold sections retain their entrance animations.
+      if (element.getBoundingClientRect().top < window.innerHeight || element.contains(document.activeElement)) return;
       const kind = element.dataset.motion || "rise";
       const parent = element.parentElement;
       const index = parent?.hasAttribute("data-motion-group") ? Array.from(parent.children).indexOf(element) : 0;

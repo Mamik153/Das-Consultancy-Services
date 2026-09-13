@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
+import { SculptureMark } from "@/components/sculpture-mark";
 import { faqSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
 
@@ -26,7 +27,7 @@ export default function Home() {
           </div>
         </div>
         <div className="hero-art" data-motion="panel">
-          <Image src="/images/precision-sculpture.webp" alt="" fill sizes="(max-width: 760px) 100vw, 43vw" preload className="sculpture" />
+          <Image src="/images/precision-sculpture.webp" alt="" fill sizes="(max-width: 760px) 100vw, 43vw" loading="eager" fetchPriority="high" className="sculpture" />
           <div className="art-top"><span>Considered by design.</span><span>Built to last.</span></div>
           <div className="art-bottom"><span>Strong foundations.<br />Extraordinary possibilities.</span><a href="#approach" className="round-link" aria-label="Explore our approach"><ArrowDown size={27} aria-hidden="true" /></a></div>
         </div>
@@ -40,20 +41,34 @@ export default function Home() {
       </div>
 
       <section className="services-section page-shell" id="services" aria-labelledby="services-title">
-        <div className="section-intro" data-motion-group>
-          <h2 id="services-title">The right expertise.<br /><span>Right when you need it.</span></h2>
-          <p>From a blank canvas to a complex codebase. We meet you where you are and take responsibility for what comes next.</p>
+        <div className="capabilities-layout">
+          <div className="capabilities-art" data-motion="panel">
+            <Image src="/images/services-sculpture.webp" alt="" fill sizes="(max-width: 760px) 100vw, (max-width: 1100px) 75vw, 50vw" />
+            <p>Right<br />when you<br />need it.</p>
+            <Link href="/services" className="capabilities-art-link">Explore our services <ArrowUpRight size={26} aria-hidden="true" /></Link>
+          </div>
+          <div className="capabilities-content">
+            <div className="capabilities-heading" data-motion-group>
+              <h2 id="services-title">The right<br /> expertise.</h2>
+              <p>From a blank canvas to a complex codebase. We meet you where you are and take responsibility for what comes next.</p>
+            </div>
+            <div className="capability-links" data-motion-group>
+              {site.services.map((service, index) => (
+                <Link href={`/services/${service.slug}`} key={service.slug}>
+                  <h3>{service.title}</h3>
+                  <p>{serviceNotes[index]}</p>
+                  <ArrowUpRight size={20} aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+            <div className="capabilities-tools" data-motion="fade">
+              <p>Built with tools your next team will know.</p>
+              <ul aria-label="Technologies and expertise">
+                {["TypeScript", "React", "Next.js", "Python", "Postgres", "AI integration"].map((tool) => <li key={tool}>{tool}</li>)}
+              </ul>
+            </div>
+          </div>
         </div>
-        <div className="service-list" data-motion-group>
-          {site.services.map((service, index) => (
-            <Link href={`/services/${service.slug}`} className="service-row" key={service.slug}>
-              <h3>{service.title}</h3>
-              <p>{serviceNotes[index]}</p>
-              <span className="service-arrow"><ArrowUpRight aria-hidden="true" /></span>
-            </Link>
-          ))}
-        </div>
-        <div className="technology-line" data-motion="fade"><span>Built with tools your next team will know.</span><p>TypeScript <span>/</span> React <span>/</span> Next.js <span>/</span> Python <span>/</span> Postgres</p></div>
       </section>
 
       <section className="approach-section" id="approach" aria-labelledby="approach-title">
@@ -76,7 +91,7 @@ export default function Home() {
       </section>
 
       <section className="partner-section page-shell" aria-labelledby="partner-title">
-        <div className="partner-panel" data-motion="panel"><span className="partner-name">{site.name}</span><p>Small by choice.<br />Accountable<br />by name.</p><div className="founder-signoff"><div className="founder-initials" aria-hidden="true">md.</div><div><strong>{site.founder}</strong><span>Founder & engineering partner</span></div><ArrowUpRight aria-hidden="true" /></div></div>
+        <div className="partner-panel" data-motion="panel"><div className="partner-panel-top"><span className="partner-name">{site.name}</span><SculptureMark /></div><p>Small by choice.<br />Accountable<br />by name.</p><div className="founder-signoff"><div className="founder-initials" aria-hidden="true">md.</div><div><strong>{site.founder}</strong><span>Founder & engineering partner</span></div><ArrowUpRight aria-hidden="true" /></div></div>
         <div className="partner-copy" data-motion="rise"><h2 id="partner-title">A partner.<br /><span>Not a hand-off.</span></h2><p>You talk to the person building your product. Mamik leads every engagement personally, from the first conversation to the final handover.</p><p>We keep our commitments focused so your project gets the attention it deserves. Honest advice, well-understood technology, and software your team can maintain.</p><Link href="/about" className="text-link">Meet your engineering partner <ArrowUpRight aria-hidden="true" size={20} /></Link></div>
       </section>
 

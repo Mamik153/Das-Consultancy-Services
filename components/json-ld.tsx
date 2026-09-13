@@ -3,7 +3,7 @@ export function JsonLd({ data }: { data: object }) {
     <script
       type="application/ld+json"
       // Server-rendered from our own static config — no user input reaches this.
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
     />
   );
 }

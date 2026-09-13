@@ -1,16 +1,11 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { LegalDocument } from "@/components/legal-document";
 import { JsonLd } from "@/components/json-ld";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
 
-export const metadata: Metadata = {
-  title: "Legal & privacy",
-  description: "Who operates this website, how enquiry information is used, and how to contact us about privacy.",
-  alternates: { canonical: "/legal" },
-  openGraph: { title: `Legal & privacy | ${site.name}`, url: "/legal" },
-};
+export const metadata = pageMetadata("Legal & privacy", "Who operates this website, how enquiry information is used, and how to contact us about privacy.", "/legal");
 
 const sections = [
   { id: "operator", title: "Who we are", body: <p>This website is operated by {site.legalName}, an independent software consultancy led by {site.founder} in India. For business, legal, or privacy questions, use our <Link href="/contact">contact form</Link>. Include “Privacy request” or “Legal enquiry” in your message so we can direct it appropriately.</p> },

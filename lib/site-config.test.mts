@@ -9,10 +9,15 @@ test("site URL handles unset, blank, and configured environment values", async (
   });
 
   const cases = [
-    [undefined, "https://example.com"],
-    ["", "https://example.com"],
-    ["   ", "https://example.com"],
+    [undefined, "https://das-consultancy-services.vercel.app"],
+    ["", "https://das-consultancy-services.vercel.app"],
+    ["   ", "https://das-consultancy-services.vercel.app"],
+    ["https://example.com", "https://das-consultancy-services.vercel.app"],
     [" https://consultancy.example.org ", "https://consultancy.example.org"],
+    ["https://consultancy.example.org/", "https://consultancy.example.org"],
+    ["http://consultancy.example.org/", "https://consultancy.example.org"],
+    ["http://localhost:3000", "http://localhost:3000"],
+    ["https://consultancy.example.org/path?query=1#fragment", "https://consultancy.example.org"],
   ] as const;
   for (const [index, [value, expected]] of cases.entries()) {
     if (value === undefined) delete process.env.NEXT_PUBLIC_SITE_URL;
@@ -20,5 +25,9 @@ test("site URL handles unset, blank, and configured environment values", async (
     const { site } = await import(`../site.config.ts?url-test=${index}`);
     assert.equal(site.url, expected);
     assert.equal(new URL(site.url).origin, expected);
+  }
+  for (const [index, value] of ["ftp://example.org", "https://user:password@example.org", "not-a-url"].entries()) {
+    process.env.NEXT_PUBLIC_SITE_URL = value;
+    await assert.rejects(import(`../site.config.ts?invalid-url=${index}`));
   }
 });

@@ -9,6 +9,12 @@
  * what answer engines quote about you).
  */
 
+const publicUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://das-consultancy-services.vercel.app");
+if (!["https:", "http:"].includes(publicUrl.protocol) || publicUrl.username || publicUrl.password) {
+  throw new Error("NEXT_PUBLIC_SITE_URL must be a public HTTP(S) URL without credentials.");
+}
+if (!["localhost", "127.0.0.1", "[::1]"].includes(publicUrl.hostname)) publicUrl.protocol = "https:";
+
 export const site = {
   name: "Das Software Consultancy",
   legalName: "Das Software Consultancy",
@@ -16,9 +22,8 @@ export const site = {
   locale: "en_US",
   lang: "en",
 
-  // TODO: set NEXT_PUBLIC_SITE_URL in .env.local and in Vercel project settings.
-  // The fallback is only here so `pnpm build` works before the domain is bought.
-  url: process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://example.com",
+  // Update the environment value when the custom domain is connected.
+  url: publicUrl.hostname === "example.com" ? "https://das-consultancy-services.vercel.app" : publicUrl.origin,
 
   // One line. Shown in the hero, used as the default meta description seed.
   tagline: "Software consultancy for teams that need working software, shipped.",
@@ -27,7 +32,7 @@ export const site = {
   // engine is most likely to quote when asked "what is Das Software
   // Consultancy?" — make it factual and specific, not aspirational.
   description:
-    "Das Software Consultancy is an independent software consultancy that designs, builds, and ships production web and backend systems. We work directly with founders and engineering leaders on short, scoped engagements — architecture reviews, greenfield builds, and rescuing stalled projects. Every engagement ends with running software and a team that can maintain it.",
+    "Das Software Consultancy builds web and backend systems, integrates AI, and provides architecture reviews, project rescue, and technical advisory for founders.",
 
   // TODO: add your real profiles. These become schema.org `sameAs`, which is how
   // search and answer engines confirm you are a real, identifiable entity.
@@ -37,16 +42,38 @@ export const site = {
     // "https://github.com/...",
   ] as string[],
 
-  // Add real member details here; portrait paths point to files in public/.
+  // Founding team; portrait paths point to files in public/.
   team: [
-    { name: "Mamik Das", role: "Founder · Software engineer", bio: "Leads the consultancy and works directly with founders and engineering teams, from the first conversation through delivery.", portrait: "" },
-    { name: "Aniket Giri", role: "Co-founder · Software engineer", bio: "", portrait: "" },
-    { name: "Sumit Khanna", role: "Co-founder · Software engineer", bio: "", portrait: "" },
+    {
+      name: "Mamik Das",
+      role: "Founder & CEO",
+      previousRole: "Forward Deployed Engineer",
+      bio: "Mamik works across frontend, UI, UX, and backend engineering, with extensive experience integrating AI into products. A technology enthusiast, he connects the experience people see with the systems and AI capabilities behind it.",
+      expertise: ["Frontend", "UI & UX", "Backend", "AI integration"],
+      portrait: "",
+    },
+    {
+      name: "Aniket Giri",
+      role: "Co-founder & CPO",
+      previousRole: "Software Engineer",
+      bio: "Aniket specialises in frontend engineering and SEO, with extensive hands-on experience in AI and product integration. His work also extends into robotics, bringing a broad technical perspective to product experience and discoverability.",
+      expertise: ["Frontend", "SEO", "Robotics", "AI integration"],
+      portrait: "",
+    },
+    {
+      name: "Sumit Khanna",
+      role: "Co-founder & CTO",
+      previousRole: "Principal Engineer",
+      bio: "Sumit brings deep technical expertise and extensive experience integrating AI into products, backed by his work as a Principal Engineer. He combines engineering judgment with strong people skills to guide technical decisions and manage teams effectively.",
+      expertise: ["Technical strategy", "Engineering leadership", "People management", "AI integration"],
+      portrait: "",
+    },
   ],
 
   services: [
     {
       slug: "product-engineering",
+      metaDescription: "Build and launch web applications with frontend, APIs, databases, deployment, and AI integration. Scoped delivery with source code you own.",
       promise: "From your first idea to a product people can use.",
       engagement: "Scoped build",
       fit: ["You have a product idea and need a dependable team to build it.", "Your prototype needs to become a maintainable production application.", "You need frontend, backend, and deployment handled together."],
@@ -63,6 +90,7 @@ export const site = {
     },
     {
       slug: "architecture-review",
+      metaDescription: "A focused two-week architecture review covering reliability, scaling, cost, and maintainability, with a prioritised report and a working session.",
       promise: "Make your next technical decision with confidence.",
       engagement: "Two-week review",
       fit: ["Your system is growing and you need to understand its limits.", "Infrastructure costs are rising without a clear explanation.", "You want an independent view before committing to a major rewrite."],
@@ -79,6 +107,7 @@ export const site = {
     },
     {
       slug: "project-rescue",
+      metaDescription: "Get a stalled software project moving. Start with a codebase assessment, then agree a recovery plan, release priorities, and a maintainable handover.",
       promise: "Get a stalled build moving toward a real release.",
       engagement: "Assessment, then recovery",
       fit: ["Your project has overrun and the launch date keeps moving.", "The original team has left and you need someone to take ownership.", "You need a candid assessment of what is worth keeping."],
@@ -95,6 +124,7 @@ export const site = {
     },
     {
       slug: "technical-advisory",
+      metaDescription: "Fractional CTO support for founders: architecture decisions, engineering hiring, vendor reviews, and technical due diligence through a monthly retainer.",
       promise: "Senior technical judgment, close to your business.",
       engagement: "Monthly retainer",
       fit: ["You are a founder without a senior engineer in-house.", "You need help evaluating vendors, hires, or technical proposals.", "You want a consistent technical voice ahead of a raise or a new phase of growth."],

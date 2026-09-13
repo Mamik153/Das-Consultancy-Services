@@ -1,16 +1,11 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { LegalDocument } from "@/components/legal-document";
 import { JsonLd } from "@/components/json-ld";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
 
-export const metadata: Metadata = {
-  title: "Terms & conditions",
-  description: "Terms for using the Das Software Consultancy website and making a project enquiry.",
-  alternates: { canonical: "/terms" },
-  openGraph: { title: `Terms & conditions | ${site.name}`, url: "/terms" },
-};
+export const metadata = pageMetadata("Terms & conditions", "Terms for using the Das Software Consultancy website and making a project enquiry.", "/terms");
 
 const sections = [
   { id: "scope", title: "About these terms", body: <p>These terms apply to your use of the website operated by {site.legalName} in India. Please read them before using the website or submitting an enquiry. They cover website use; a paid project is governed by a separate written engagement agreement.</p> },

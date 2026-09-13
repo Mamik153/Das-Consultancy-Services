@@ -2,7 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { site } from "@/site.config";
-import logo from "@/public/images/dsc-logo.png";
+import logo from "@/public/images/dsc-logo.webp";
+import { SiteNav } from "@/components/site-nav";
 
 export function SiteHeader() {
   return (
@@ -11,12 +12,7 @@ export function SiteHeader() {
         <Link href="/" className="header-logo" aria-label={`${site.name} home`}>
           <Image src={logo} alt={site.name} sizes="(max-width: 760px) 190px, 240px" loading="eager" />
         </Link>
-        <nav aria-label="Main" className="main-nav">
-          <Link href="/services">Expertise</Link>
-          <Link href="/#approach">Our approach</Link>
-          <Link href="/about">About us</Link>
-          <Link href="/team">Team</Link>
-        </nav>
+        <SiteNav />
         <Link href="/contact" className="pill-button header-cta">Let’s talk <ArrowUpRight size={18} aria-hidden="true" /></Link>
       </div>
     </header>

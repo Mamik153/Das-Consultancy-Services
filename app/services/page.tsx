@@ -1,97 +1,84 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
-import { breadcrumbSchema, faqSchema, graph } from "@/lib/schema";
+import { breadcrumbSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
 
 const title = "Services";
-const description = `${site.name} offers ${site.services
-  .map((s) => s.title.toLowerCase())
-  .join(", ")}. Every engagement is scoped, priced, and dated in writing before work starts.`;
+const description = "Explore product engineering, architecture reviews, project rescue, and technical advisory. Software and AI expertise with scope and pricing agreed upfront.";
 
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: { canonical: "/services" },
-  openGraph: { title: `${title} | ${site.name}`, description, url: "/services" },
-};
+export const metadata = pageMetadata(title, description, "/services");
 
 export default function ServicesPage() {
   return (
     <>
-      <JsonLd
-        data={graph(
-          faqSchema,
-          breadcrumbSchema([{ name: "Services", path: "/services" }]),
-        )}
-      />
+      <JsonLd data={graph(breadcrumbSchema([{ name: "Services", path: "/services" }]))} />
 
-      <section className="interior-page mx-auto max-w-3xl px-6" data-motion-group>
-        <h1 className="text-5xl font-normal tracking-tight text-balance sm:text-7xl">
-          Services
-        </h1>
-        <p className="mt-6 text-lg text-muted-foreground text-pretty">{description}</p>
-      </section>
+      <div className="services-page page-shell">
+        <div className="services-visual-strip" aria-hidden="true">
+          <div className="services-visual-word">idea.</div>
+          <div className="services-visual-material"><Image src="/images/precision-sculpture.webp" alt="" fill sizes="(max-width: 760px) 25vw, 24vw" loading="eager" /></div>
+          <div className="services-visual-arrow"><ArrowRight strokeWidth={1.3} /></div>
+          <div className="services-visual-build"><Image src="/images/services-sculpture.webp" alt="" fill sizes="(max-width: 760px) 25vw, 24vw" loading="eager" /><span>built.</span></div>
+        </div>
+        <header className="services-masthead" data-motion="headline">
+          <h1>Services.</h1>
+          <Link href="/contact" className="pill-button dark-button">Start an enquiry <ArrowUpRight size={20} aria-hidden="true" /></Link>
+        </header>
+        <div className="services-intro" data-motion-group>
+          <div>
+            <h2>Clear outcomes.<br /><span>From the start.</span></h2>
+            <p>{description}</p>
+          </div>
+          <p className="services-statement">Every engagement is scoped, priced, and dated in writing before work starts.</p>
+        </div>
 
-      <div className="mx-auto max-w-3xl px-4 pb-16 sm:px-6 sm:pb-24">
-        {site.services.map((s) => (
-          // scroll-mt clears the sticky header when linked to by fragment.
-          <section
-            key={s.slug} data-motion="rise"
-            id={s.slug}
-            className="scroll-mt-24 border-t py-12 first:border-t-0 first:pt-0"
-            aria-labelledby={`${s.slug}-heading`}
-          >
-            <h2
-              id={`${s.slug}-heading`}
-              className="text-2xl font-semibold tracking-tight"
+        <div className="services-catalog">
+          {site.services.map((service) => (
+            <section
+              key={service.slug}
+              id={service.slug}
+              className="services-offering"
+              aria-labelledby={`${service.slug}-heading`}
             >
-              <Link href={`/services/${s.slug}`}>{s.title}</Link>
-            </h2>
-            <p className="mt-4 text-muted-foreground">{s.summary}</p>
-            <h3 className="mt-8 text-sm font-medium tracking-wide uppercase">
-              What you get
-            </h3>
-            <ul className="mt-4 space-y-2">
-              {s.outcomes.map((o) => (
-                <li key={o} className="flex gap-3 text-muted-foreground">
-                  <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-foreground/40" />
-                  {o}
-                </li>
-              ))}
-            </ul>
-            <Link href={`/services/${s.slug}`} className="text-link mt-6">Explore {s.title.toLowerCase()}</Link>
-          </section>
-        ))}
-      </div>
+              <div className="services-overview" data-motion="rise">
+                <h2 id={`${service.slug}-heading`}>{service.title}</h2>
+                <p>{service.summary}</p>
+                <Link href={`/services/${service.slug}`} className="text-link">
+                  Explore {service.title.toLowerCase()} <ArrowUpRight size={20} aria-hidden="true" />
+                </Link>
+              </div>
+              <div className="services-outcomes" data-motion="fade">
+                <h3>What you get</h3>
+                <ul>
+                  {service.outcomes.map((outcome) => (
+                    <li key={outcome}><Check size={18} aria-hidden="true" /><span>{outcome}</span></li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          ))}
+        </div>
 
-      <section className="border-t bg-muted/30 py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6" data-motion-group>
-          <h2 className="text-2xl font-semibold tracking-tight">Common questions</h2>
-          <div className="mt-8 border-y divide-y">
-            {site.faqs.map((f) => (
-              <details key={f.q} className="group py-4">
-                <summary className="cursor-pointer list-none font-medium marker:content-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none">
-                  <span className="flex items-start justify-between gap-4">
-                    {f.q}
-                    <span
-                      aria-hidden
-                      className="mt-1 shrink-0 text-muted-foreground transition-transform group-open:rotate-45"
-                    >
-                      +
-                    </span>
-                  </span>
-                </summary>
-                <p className="mt-3 text-muted-foreground">{f.a}</p>
+        <section className="faq-section" aria-labelledby="services-faq-title">
+          <div className="faq-intro" data-motion="rise">
+            <h2 id="services-faq-title">Common<br /><span>questions.</span></h2>
+            <Link href="/contact" className="text-link">
+              Start an enquiry <ArrowUpRight size={20} aria-hidden="true" />
+            </Link>
+          </div>
+          <div className="faq-list" data-motion-group>
+            {site.faqs.map((faq) => (
+              <details key={faq.q}>
+                <summary>{faq.q}<Plus size={20} aria-hidden="true" /></summary>
+                <p>{faq.a}</p>
               </details>
             ))}
           </div>
-          <Button render={<Link href="/contact" />} size="lg" className="mt-10 px-5">
-            Start an enquiry
-          </Button>
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }

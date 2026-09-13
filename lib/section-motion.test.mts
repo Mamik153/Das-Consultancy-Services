@@ -9,7 +9,8 @@ test("section reveals run once, release on focus/reduced motion, and clean up on
   class Element {
     dataset = { motion: "rise" };
     parentElement = { hasAttribute: () => true, children: [] as Element[] };
-    getBoundingClientRect() { return { bottom: 500 }; }
+    top = 1200;
+    getBoundingClientRect() { return { top: this.top, bottom: this.top + 500 }; }
     contains(target: unknown) { return target === this; }
     animate(_frames: unknown, timing: { delay: number; duration: number; easing: string }) {
       const call = { ...timing, plays: 0, canceled: false, onfinish: undefined as (() => void) | undefined };
@@ -44,7 +45,7 @@ test("section reveals run once, release on focus/reduced motion, and clean up on
   const exports: { observeSectionMotion?: () => (() => void) | undefined } = {};
   const context = {
     exports, Element, Node: Element, IntersectionObserver,
-    window: { IntersectionObserver, matchMedia: () => preference },
+    window: { IntersectionObserver, innerHeight: 800, matchMedia: () => preference },
     document: { documentElement: {}, activeElement: null, querySelectorAll: () => elements, ...events },
     getComputedStyle: () => ({ getPropertyValue: (name: string) => tokens[name] || "" }),
   };
@@ -80,6 +81,11 @@ test("section reveals run once, release on focus/reduced motion, and clean up on
   assert.deepEqual(calls.slice(5).map((call) => call.duration), [1200, 1200, 800, 1000, 1000], "seconds and milliseconds produce the same pacing");
   assert.deepEqual(calls.slice(5).map((call) => call.delay), [0, 120, 240, 360, 360]);
   stop();
+  elements.forEach((element) => { element.top = 100; });
+  const callCount = calls.length;
+  const stopVisible = exports.observeSectionMotion!()!;
+  assert.equal(calls.length, callCount, "initial viewport remains visible without delaying LCP");
+  stopVisible();
   delete (context.window as { IntersectionObserver?: unknown }).IntersectionObserver;
   assert.equal(exports.observeSectionMotion!(), undefined, "unsupported browsers retain visible content");
 });

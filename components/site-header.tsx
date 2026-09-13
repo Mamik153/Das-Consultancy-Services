@@ -1,12 +1,16 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { site } from "@/site.config";
+import logo from "@/public/images/dsc-logo.png";
 
 export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="header-inner page-shell">
-        <Link href="/" className="wordmark" aria-label={`${site.name} home`}>das<span>.</span><span className="wordmark-description">software<br />consultancy</span></Link>
+        <Link href="/" className="header-logo" aria-label={`${site.name} home`}>
+          <Image src={logo} alt={site.name} sizes="(max-width: 760px) 190px, 240px" loading="eager" />
+        </Link>
         <nav aria-label="Main" className="main-nav">
           <Link href="/services">Expertise</Link>
           <Link href="/#approach">Our approach</Link>

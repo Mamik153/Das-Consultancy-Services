@@ -5,15 +5,17 @@ import { runInNewContext } from "node:vm";
 import ts from "typescript";
 
 test("section reveals run once, release on focus/reduced motion, and clean up on navigation", () => {
-  const calls: { delay: number; duration: number; easing: string; plays: number; canceled: boolean; onfinish?: () => void }[] = [];
+  const calls: { frames: Keyframe[]; delay: number; duration: number; easing: string; plays: number; canceled: boolean; onfinish?: () => void }[] = [];
   class Element {
     dataset = { motion: "rise" };
     parentElement = { hasAttribute: () => true, children: [] as Element[] };
     top = 1200;
-    getBoundingClientRect() { return { top: this.top, bottom: this.top + 500 }; }
+    children: Element[] = [];
+    querySelectorAll() { return this.children; }
+    getBoundingClientRect() { return { top: this.top, bottom: this.top + 500, height: 500 }; }
     contains(target: unknown) { return target === this; }
-    animate(_frames: unknown, timing: { delay: number; duration: number; easing: string }) {
-      const call = { ...timing, plays: 0, canceled: false, onfinish: undefined as (() => void) | undefined };
+    animate(frames: Keyframe[], timing: { delay: number; duration: number; easing: string }) {
+      const call = { frames, ...timing, plays: 0, canceled: false, onfinish: undefined as (() => void) | undefined };
       calls.push(call);
       return Object.assign(call, {
         pause() {},
@@ -27,7 +29,7 @@ test("section reveals run once, release on focus/reduced motion, and clean up on
   elements[1].dataset.motion = "panel";
   elements[2].dataset.motion = "fade";
   elements.forEach((element) => { element.parentElement.children = elements; });
-  let intersect: (entries: { target: Element; isIntersecting: boolean }[]) => void;
+  let intersect: (entries: { target: Element; isIntersecting: boolean; intersectionRatio?: number }[]) => void;
   const observed = new Set<Element>();
   class IntersectionObserver {
     constructor(callback: typeof intersect) { intersect = callback; }
@@ -86,6 +88,25 @@ test("section reveals run once, release on focus/reduced motion, and clean up on
   const stopVisible = exports.observeSectionMotion!()!;
   assert.equal(calls.length, callCount, "initial viewport remains visible without delaying LCP");
   stopVisible();
+  elements[0].dataset.motion = "tools";
+  elements[0].children = Array.from({ length: 6 }, () => new Element());
+  const stopTools = exports.observeSectionMotion!()!;
+  assert.equal(calls.length, callCount, "pills stay visible until the container enters view");
+  intersect!([{ target: elements[0], isIntersecting: true, intersectionRatio: .1 }]);
+  assert.equal(calls.length, callCount, "waits until half the container is visible");
+  intersect!([{ target: elements[0], isIntersecting: true, intersectionRatio: .5 }]);
+  const drops = calls.slice(callCount);
+  assert.equal(drops.length, 6);
+  assert.deepEqual(drops.map((drop) => drop.delay), [0, 110, 220, 330, 440, 550]);
+  assert.equal(drops[0].frames[0].translate, "0 -580px");
+  assert.equal(drops[0].frames.at(-1)?.rotate, "0deg", "settles onto the original CSS rotation");
+  assert.equal(observed.has(elements[0]), false, "drop plays once per route visit");
+  drops[0].onfinish!();
+  assert.equal(drops[0].canceled, true);
+  preference.matches = true;
+  listeners.get("change")!();
+  assert.ok(drops.every((drop) => drop.canceled), "reduced motion releases falling pills immediately");
+  stopTools();
   delete (context.window as { IntersectionObserver?: unknown }).IntersectionObserver;
   assert.equal(exports.observeSectionMotion!(), undefined, "unsupported browsers retain visible content");
 });

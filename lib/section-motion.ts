@@ -32,12 +32,31 @@ export function observeSectionMotion() {
     observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
+        if ((entry.target as HTMLElement).dataset.motion === "tools") {
+          if (entry.intersectionRatio < .5) continue;
+          const distance = entry.target.getBoundingClientRect().height + 80;
+          entry.target.querySelectorAll("li").forEach((pill, index) => {
+            const direction = index % 2 ? 1 : -1;
+            const animation = pill.animate([
+              { translate: `0 -${distance}px`, rotate: `${direction * 24}deg`, offset: 0, easing: "cubic-bezier(.55, 0, 1, .45)" },
+              { translate: "0 0", rotate: `${direction * -5}deg`, offset: .6, easing: "cubic-bezier(0, 0, .3, 1)" },
+              { translate: "0 -22px", rotate: `${direction * 3}deg`, offset: .77, easing: "cubic-bezier(.55, 0, 1, .45)" },
+              { translate: "0 0", rotate: "0deg", offset: 1 },
+            ], { id: "tools-drop", duration: 950, delay: index * 110, fill: "both" });
+            animations.set(pill, animation);
+            animation.onfinish = () => { animation.cancel(); animations.delete(pill); };
+          });
+        }
         animations.get(entry.target)?.play();
         observer?.unobserve(entry.target);
       }
-    }, { threshold: 0, rootMargin: "0px 0px -24px 0px" });
+    }, { threshold: [0, .5], rootMargin: "0px 0px -24px 0px" });
 
     document.querySelectorAll<HTMLElement>("[data-motion], [data-motion-group] > *").forEach((element) => {
+      if (element.dataset.motion === "tools") {
+        observer!.observe(element);
+        return;
+      }
       // Never hide content already visible at hydration, including the LCP image.
       // Below-fold sections retain their entrance animations.
       if (element.getBoundingClientRect().top < window.innerHeight || element.contains(document.activeElement)) return;

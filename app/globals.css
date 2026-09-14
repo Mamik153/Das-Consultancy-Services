@@ -242,6 +242,8 @@ h2 { text-wrap: balance; }
 .section-intro h2, .partner-copy h2, .faq-intro h2 { font-size: clamp(36px, 4vw, 58px); font-weight: 450; line-height: 1.08; letter-spacing: -.035em; }
 .section-intro h2 span, .partner-copy h2 span, .faq-intro h2 span { color: var(--agency-muted); }
 .section-intro > p { max-width: 340px; color: var(--agency-muted); font-size: 15px; line-height: 1.6; }
+.services-section .section-intro { display: block; }
+.services-section .section-intro > p { max-width: 540px; margin-top: 22px; }
 .approach-section { background: var(--agency-ink); color: white; border-radius: 32px; padding-block: 92px 64px; margin-inline: 12px; }
 .approach-section .page-shell { width: min(1440px, calc(100% - 56px)); }
 .approach-section .section-intro h2 span { color: #a6a8ae; }
@@ -641,6 +643,10 @@ h2 { text-wrap: balance; }
 .services-intro > div > p { max-width: 440px; color: var(--agency-muted); font-size: 16px; line-height: 1.7; margin-top: 24px; }
 .services-statement { font-size: clamp(26px, 3vw, 44px); line-height: 1.35; letter-spacing: -.025em; }
 .services-offering { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; padding-block: 52px; border-top: 1px solid #d8d9dc; }
+.service-artwork { display: block; width: 100%; height: auto; border-radius: 24px; }
+.services-offering > .service-artwork { align-self: start; }
+.services-offering-content, .service-detail-visual { display: grid; align-content: start; gap: 28px; min-width: 0; }
+.service-detail-visual .service-promise { gap: 28px; }
 .services-overview h2 { font-size: clamp(30px, 3.3vw, 48px); font-weight: 450; line-height: 1.12; letter-spacing: -.035em; }
 .services-overview > p { max-width: 56ch; color: var(--agency-muted); font-size: 16px; line-height: 1.75; margin-block: 22px 26px; }
 .services-overview .text-link { min-height: 44px; }
@@ -651,37 +657,27 @@ h2 { text-wrap: balance; }
 .services-outcomes li + li { margin-top: 18px; }
 .services-outcomes svg { flex-shrink: 0; color: var(--agency-blue); align-self: flex-start; margin-top: 4px; }
 .services-page .faq-intro .text-link { margin-top: 28px; }
-.capabilities-layout { display: grid; grid-template-columns: .9fr 1.2fr; gap: 16px; padding: 16px; background: var(--agency-paper); border-radius: 32px; }
-.capabilities-art { position: relative; min-height: 730px; border-radius: 28px; overflow: hidden; }
-.capabilities-art img { object-fit: cover; }
-.capabilities-art > p { position: relative; padding: 32px; font-size: clamp(36px, 4vw, 58px); font-weight: 450; line-height: 1.08; letter-spacing: -.035em; }
-.capabilities-art-link { position: absolute; inset: auto 16px 16px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 24px; border-radius: 999px; background: white; font-size: 16px; }
-.capabilities-art-link:hover { background: var(--agency-blue); color: white; }
-.capabilities-art-link:focus-visible { outline-offset: -6px; }
-.capabilities-content { min-width: 0; padding: 36px; background: white; border-radius: 28px; display: flex; flex-direction: column; gap: 34px; }
-.capabilities-heading { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 24px; }
-.capabilities-heading h2 { font-size: clamp(32px, 3.3vw, 48px); font-weight: 450; line-height: 1.08; letter-spacing: -.035em; }
-.capabilities-heading > p { font-size: 14px; color: var(--agency-muted); line-height: 1.6; }
-.capability-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.capability-links a { position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 132px; padding: 24px 44px 24px 26px; border-radius: 999px; background: var(--agency-paper); }
-.capability-links h3 { font-size: 19px; font-weight: 500; line-height: 1.2; letter-spacing: -.025em; }
-.capability-links p { font-size: 12px; line-height: 1.5; color: var(--agency-muted); margin-top: 10px; }
-.capability-links svg { position: absolute; top: 28px; right: 20px; }
-.capability-links a:hover { background: var(--agency-blue); color: white; }
-.capability-links a:hover p { color: white; }
-.capabilities-tools { margin-top: auto; }
-.capabilities-tools > p { color: var(--agency-muted); font-size: 13px; margin-bottom: 18px; }
-.capabilities-tools ul { display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 16px 12px; min-height: 250px; padding: 30px 16px; border: 1px solid #d8d9dc; border-radius: 28px; }
+.capability-links { display: flex; flex-direction: column; gap: 32px; isolation: isolate; }
+.capability-links a { --stack-offset: 0px; position: sticky; top: calc(112px + var(--stack-offset)); display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1fr) 28px; align-items: center; gap: 40px; padding: 16px 32px 16px 16px; min-height: 320px; border: 1px solid #d8d9dc; border-radius: 28px; background: var(--agency-paper); }
+.capability-links a:nth-child(2) { --stack-offset: 32px; background: white; }
+.capability-links a:nth-child(3) { --stack-offset: 64px; }
+.capability-links a:nth-child(4) { --stack-offset: 96px; background: white; }
+.capability-image { width: 100%; height: 100%; min-height: 288px; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 16px; }
+.capability-links h3 { font-size: clamp(26px, 2.8vw, 40px); font-weight: 500; line-height: 1.15; letter-spacing: -.03em; }
+.capability-links p { font-size: 14px; line-height: 1.6; color: var(--agency-muted); margin-top: 8px; }
+.capability-links .capability-outcome { font-size: 17px; color: var(--agency-ink); margin-top: 24px; }
+.capability-arrow { color: var(--agency-blue); }
+.capability-links a:is(:hover, :focus-visible) h3 { color: var(--agency-blue); text-decoration: underline; text-underline-offset: 6px; }
+.capability-links a:focus-visible { z-index: 1; outline-offset: -6px; }
+.capabilities-tools { width: 100%; margin-top: 80px; }
+.capabilities-tools h2 { font-size: clamp(36px, 4vw, 58px); font-weight: 450; line-height: 1.08; letter-spacing: -.035em; margin-bottom: 36px; }
+.capabilities-tools h2 span { color: var(--agency-muted); }
+.capabilities-tools ul { display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 16px 12px; min-height: 250px; padding: 30px 16px; border: 1px solid #d8d9dc; border-radius: 28px; overflow: clip; }
 .capabilities-tools li { border: 1px solid var(--agency-ink); border-radius: 999px; padding: 8px 20px; font-size: clamp(23px, 2.65vw, 38px); line-height: 1.15; letter-spacing: -.025em; background: white; transform: rotate(-8deg); }
 .capabilities-tools li:nth-child(2n) { transform: rotate(8deg); }
 .capabilities-tools li:last-child { background: var(--agency-blue); border-color: var(--agency-blue); color: white; transform: rotate(-4deg); }
 @media (max-width: 1100px) {
-  .capabilities-layout { grid-template-columns: .85fr 1.2fr; }
-  .capabilities-content { padding: 26px; gap: 28px; }
-  .capabilities-heading { grid-template-columns: 1fr; gap: 18px; }
-  .capabilities-heading h2 br { display: none; }
-  .capability-links a { min-height: 144px; padding-left: 22px; }
-  .capabilities-art > p { padding: 26px; }
+  .capability-links a { padding: 16px 24px 16px 16px; gap: 24px; grid-template-columns: minmax(0, .9fr) minmax(0, 1fr) 24px; }
   .capabilities-tools ul { gap: 18px 10px; }
   .capabilities-tools li { padding-inline: 14px; }
 }
@@ -704,15 +700,23 @@ h2 { text-wrap: balance; }
   .services-offering { padding-block: 36px; }
   .services-overview > p { margin-block: 18px 20px; }
   .services-outcomes { padding: 28px 24px; border-radius: 22px; }
-  .capabilities-layout { grid-template-columns: 1fr; padding: 10px; gap: 10px; border-radius: 24px; }
-  .capabilities-art { min-height: 460px; border-radius: 22px; }
-  .capabilities-art > p { font-size: clamp(36px, 8vw, 56px); padding: 24px; }
-  .capabilities-art-link { padding: 18px 22px; font-size: 14px; }
-  .capabilities-content { padding: 28px 20px; border-radius: 22px; }
-  .capability-links { grid-template-columns: 1fr; }
-  .capability-links a { min-height: 110px; padding: 24px 48px 24px 28px; }
+  .capability-links { gap: 16px; }
+  .capability-links a { position: static; min-height: 0; padding: 16px; gap: 24px 16px; grid-template-columns: minmax(0, 1fr) 24px; border-radius: 22px; }
+  .capability-image { grid-column: 1 / -1; height: auto; min-height: 0; }
+  .capability-copy { padding: 0 8px 12px; }
+  .capability-arrow { align-self: start; }
+  .capability-links h3 { font-size: 28px; }
+  .capability-links .capability-outcome { margin-top: 16px; }
+  .capabilities-tools { margin-top: 56px; }
+  .capabilities-tools h2 { margin-bottom: 28px; }
   .capabilities-tools ul { padding: 24px 10px; min-height: 240px; border-radius: 22px; }
   .capabilities-tools li { font-size: clamp(21px, 5vw, 30px); }
+
+}
+
+/* Keep every service readable when motion is reduced or vertical space is limited. */
+@media (prefers-reduced-motion: reduce), (max-height: 650px) {
+  .capability-links a { position: static; }
 }
 
 /* Shared graphic details extend the service references across the site. */

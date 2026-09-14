@@ -43,20 +43,30 @@ export default function ServicesPage() {
               className="services-offering"
               aria-labelledby={`${service.slug}-heading`}
             >
-              <div className="services-overview" data-motion="rise">
-                <h2 id={`${service.slug}-heading`}>{service.title}</h2>
-                <p>{service.summary}</p>
-                <Link href={`/services/${service.slug}`} className="text-link">
-                  Explore {service.title.toLowerCase()} <ArrowUpRight size={20} aria-hidden="true" />
-                </Link>
-              </div>
-              <div className="services-outcomes" data-motion="fade">
-                <h3>What you get</h3>
-                <ul>
-                  {service.outcomes.map((outcome) => (
-                    <li key={outcome}><Check size={18} aria-hidden="true" /><span>{outcome}</span></li>
-                  ))}
-                </ul>
+              <Image
+                className="service-artwork"
+                src={`/images/services/${service.slug}.webp`}
+                alt=""
+                width={960}
+                height={640}
+                sizes="(max-width: 760px) 100vw, 50vw"
+              />
+              <div className="services-offering-content">
+                <div className="services-overview" data-motion="rise">
+                  <h2 id={`${service.slug}-heading`}>{service.title}</h2>
+                  <p>{service.summary}</p>
+                  <Link href={`/services/${service.slug}`} className="text-link">
+                    Explore {service.title.toLowerCase()} <ArrowUpRight size={20} aria-hidden="true" />
+                  </Link>
+                </div>
+                <div className="services-outcomes" data-motion="fade">
+                  <h3>What you get</h3>
+                  <ul>
+                    {service.outcomes.map((outcome) => (
+                      <li key={outcome}><Check size={18} aria-hidden="true" /><span>{outcome}</span></li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </section>
           ))}

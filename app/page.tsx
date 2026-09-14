@@ -6,7 +6,12 @@ import { SculptureMark } from "@/components/sculpture-mark";
 import { faqSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
 
-const serviceNotes = ["From first idea to first release.", "Clarity before your next big move.", "A fresh start for a stalled build.", "A technical partner in your corner."];
+const servicePreviews = {
+  "product-engineering": { detail: "Web apps, APIs & AI integration", outcome: "Build your product" },
+  "architecture-review": { detail: "System reliability, scale & cost", outcome: "Improve your systems" },
+  "project-rescue": { detail: "Codebase assessment & a recovery plan", outcome: "Restart a stalled build" },
+  "technical-advisory": { detail: "Fractional CTO support for founders", outcome: "Make the right decisions" },
+};
 const steps = [
   { number: "01", title: "Find the right problem.", detail: "We start with a paid, one-to-two hour discovery session. Your goals, your constraints, and a shared definition of done.", deliverable: "A clear direction" },
   { number: "02", title: "Make the plan explicit.", detail: "You get a written scope, a fixed price, and a delivery date. We agree on what is included before a line of code is written.", deliverable: "A scope you can rely on" },
@@ -41,34 +46,32 @@ export default function Home() {
       </div>
 
       <section className="services-section page-shell" id="services" aria-labelledby="services-title">
-        <div className="capabilities-layout">
-          <div className="capabilities-art" data-motion="panel">
-            <Image src="/images/services-sculpture.webp" alt="" fill sizes="(max-width: 760px) 100vw, (max-width: 1100px) 75vw, 50vw" />
-            <p>Right<br />when you<br />need it.</p>
-            <Link href="/services" className="capabilities-art-link">Explore our services <ArrowUpRight size={26} aria-hidden="true" /></Link>
-          </div>
-          <div className="capabilities-content">
-            <div className="capabilities-heading" data-motion-group>
-              <h2 id="services-title">The right<br /> expertise.</h2>
-              <p>From a blank canvas to a complex codebase. We meet you where you are and take responsibility for what comes next.</p>
-            </div>
-            <div className="capability-links" data-motion-group>
-              {site.services.map((service, index) => (
-                <Link href={`/services/${service.slug}`} key={service.slug}>
-                  <h3>{service.title}</h3>
-                  <p>{serviceNotes[index]}</p>
-                  <ArrowUpRight size={20} aria-hidden="true" />
-                </Link>
-              ))}
-            </div>
-            <div className="capabilities-tools" data-motion="fade">
-              <p>Built with tools your next team will know.</p>
-              <ul aria-label="Technologies and expertise">
-                {["TypeScript", "React", "Next.js", "Python", "Postgres", "AI integration"].map((tool) => <li key={tool}>{tool}</li>)}
-              </ul>
-            </div>
-          </div>
+        <div className="section-intro" data-motion-group>
+          <h2 id="services-title">Ways we<br /> <span>can help.</span></h2>
+          <p>From a blank canvas to a complex codebase. We meet you where you are and take responsibility for what comes next.</p>
         </div>
+        <div className="capability-links">
+          {site.services.map((service) => {
+            const { detail, outcome } = servicePreviews[service.slug];
+            return (
+              <Link href={`/services/${service.slug}`} key={service.slug}>
+                <Image className="capability-image" src={`/images/services/${service.slug}.webp`} alt="" width={960} height={640} sizes="(max-width: 760px) calc(100vw - 66px), (max-width: 1600px) 43vw, 600px" />
+                <div className="capability-copy">
+                  <h3>{service.title}</h3>
+                  <p className="capability-outcome">{outcome}</p>
+                  <p>{detail}</p>
+                </div>
+                <ArrowUpRight className="capability-arrow" size={28} aria-hidden="true" />
+              </Link>
+            );
+          })}
+        </div>
+        <section className="capabilities-tools" id="tools" aria-labelledby="tools-title">
+          <h2 id="tools-title">Built with tools<br /> <span>your next team will know.</span></h2>
+          <ul aria-label="Technologies and expertise" data-motion="tools">
+            {["TypeScript", "React", "Next.js", "Python", "Postgres", "AI integration"].map((tool) => <li key={tool}>{tool}</li>)}
+          </ul>
+        </section>
       </section>
 
       <section className="approach-section" id="approach" aria-labelledby="approach-title">

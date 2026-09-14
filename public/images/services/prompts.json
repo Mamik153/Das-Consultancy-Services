@@ -1,0 +1,21 @@
+{
+  "generator": "Built-in image_gen",
+  "images": [
+    {
+      "name": "product-engineering",
+      "prompt": "Use case: stylized-concept. Generate a premium editorial 3D illustration for a software consultancy service card. Landscape 3:2 composition, photoreal studio materials, polished chrome and vivid cobalt blue #064fe8, soft light-gray seamless background, soft realistic contact shadows, crisp refined geometry, subject centered with generous breathing room, no text, no letters, no logos, no watermarks, no people. This is a detailed scene, not a flat icon. A small architectural assembly of layered browser-window-like glass panels and cobalt modular blocks coming together to form a finished digital product. One main translucent rounded rectangular application window with abstract interface blocks, a few precise chrome connecting elements. Communicate building software end-to-end. No readable UI text."
+    },
+    {
+      "name": "architecture-review",
+      "prompt": "Use case: stylized-concept. Generate a premium editorial 3D illustration for a software consultancy service card. Landscape 3:2 composition, photoreal studio materials, polished chrome and vivid cobalt blue #064fe8, soft light-gray seamless background, soft realistic contact shadows, crisp refined geometry, subject centered with generous breathing room, no text, no letters, no logos, no watermarks, no people. This is a detailed scene, not a flat icon. An elegant miniature system architecture built from cobalt and chrome towers connected by glass bridges, with a large clear glass magnifying lens hovering over the central junction. Communicate examining an interconnected system, structural clarity and reliability. A deliberate clean composition, not a tangled network."
+    },
+    {
+      "name": "project-rescue",
+      "prompt": "Use case: stylized-concept. Generate a premium editorial 3D illustration for a software consultancy service card. Landscape 3:2 composition, photoreal studio materials, polished chrome and vivid cobalt blue #064fe8, soft light-gray seamless background, soft realistic contact shadows, crisp refined geometry, subject centered with generous breathing room, no text, no letters, no logos, no watermarks, no people. This is a detailed scene, not a flat icon. A sculptural cobalt bridge with a missing middle segment being restored by a precisely fitting polished chrome piece suspended just above the gap. Both bridge ends stand securely on a pale studio floor. The repair is clear and optimistic; communicate recovering a stalled software project. No tools or logos."
+    },
+    {
+      "name": "technical-advisory",
+      "prompt": "Use case: stylized-concept. Generate a premium editorial 3D illustration for a software consultancy service card. Landscape 3:2 composition, photoreal studio materials, polished chrome and vivid cobalt blue #064fe8, soft light-gray seamless background, soft realistic contact shadows, crisp refined geometry, subject centered with generous breathing room, no text, no letters, no logos, no watermarks, no people. This is a detailed scene, not a flat icon. A beautifully crafted cobalt route branching in two directions across a pale studio surface, with a polished chrome compass instrument and one clear cobalt path leading toward an upright glass destination marker. Communicate confident technical direction and decisions. The compass has a simple needle, no letters or numerals."
+    }
+  ]
+}

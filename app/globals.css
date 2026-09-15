@@ -220,7 +220,7 @@ html:has(.mobile-menu[open]), html:has(.mobile-menu[open]) body { overflow: hidd
 .hero { display: grid; grid-template-columns: 1.22fr 1fr; gap: 14px; padding-top: 24px; }
 .hero-copy { background: var(--agency-paper); padding: clamp(30px, 4vw, 62px); border-radius: 28px; min-height: 670px; display: flex; flex-direction: column; justify-content: space-between; gap: 42px; }
 .hero h1 { font-size: clamp(58px, 6.35vw, 96px); font-weight: 450; letter-spacing: -.04em; line-height: 1.02; }
-.hero h1 > span { color: var(--agency-blue); }
+.hero h1 .accent { color: var(--agency-blue); }
 .hero-bottom p { max-width: 420px; font-size: 17px; line-height: 1.55; margin-bottom: 25px; color: #55575c; }
 .hero-note { display: block; margin-top: 17px; font-size: 12px; color: #626367; }
 .hero-art { position: relative; min-height: 670px; border-radius: 28px; overflow: hidden; background: #dedfe1; }
@@ -272,7 +272,7 @@ h2 { text-wrap: balance; }
 .founder-signoff > svg { margin-left: auto; }
 .partner-copy > p { font-size: 16px; line-height: 1.7; color: var(--agency-muted); max-width: 440px; margin-top: 26px; }
 .text-link { display: inline-flex; align-items: center; gap: 22px; padding-bottom: 6px; border-bottom: 1px solid #aeb0b5; font-size: 14px; }
-.text-link:hover { color: var(--agency-blue); border-color: currentColor; }
+.text-link:hover { color: var(--agency-blue); }
 .partner-copy .text-link { margin-top: 30px; }
 .faq-section { display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; padding-block: 70px 110px; border-top: 1px solid #dadbdd; }
 .faq-intro h2 { font-size: clamp(32px, 3.4vw, 48px); }
@@ -390,12 +390,91 @@ h2 { text-wrap: balance; }
 :is(.pill-button, .footer-arrow, .text-link, .related-services a, .enquiry-submit, .back-top):is(:hover, :focus-visible) svg { transform: translate(2px, -2px); }
 .round-link:is(:hover, :focus-visible) svg { transform: translateY(3px); }
 :is(.pill-button, .round-link, .footer-arrow, [data-slot="button"]):active:not(:disabled) { transform: scale(.97); }
-.main-nav a { transition: background-color var(--duration-fast) var(--ease-smooth-out), color var(--duration-fast) var(--ease-smooth-out); }
+.main-nav a { transition: background-color var(--duration-fast) var(--ease-smooth-out), color var(--duration-fast) var(--ease-smooth-out), transform var(--duration-quick) var(--ease-smooth-out); }
+.main-nav a:active { transform: scale(.97); }
 .main-nav a:not([aria-current]):is(:hover, :focus-visible) { background: white; }
-.text-link, .related-services a { transition: color var(--duration-fast) var(--ease-smooth-out), border-color var(--duration-fast) var(--ease-smooth-out); }
+.text-link, .related-services a { transition: color var(--duration-fast) var(--ease-smooth-out), border-color var(--duration-fast) var(--ease-smooth-out), background-color var(--duration-fast) var(--ease-smooth-out), background-size calc(var(--duration-fast) * 1.6) var(--ease-smooth-out); }
 .faq-list summary svg { transition: transform var(--duration-fast) var(--ease-smooth-out); }
 .faq-list details[open] > p { animation: answer-in var(--duration-fast) var(--ease-smooth-out); }
 @keyframes answer-in { from { opacity: .25; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Micro-interactions: underlines draw, media leans in, pills firm up. */
+.text-link { background: linear-gradient(currentColor, currentColor) no-repeat border-box 0 100% / 0 1px; }
+.text-link:is(:hover, :focus-visible) { background-size: 100% 1px; }
+.related-services a:is(:hover, :focus-visible) { border-color: var(--agency-ink); }
+.capability-image, .footer-art img, .team-portrait img, .team-monogram { transition: scale calc(var(--duration-fast) * 2.4) var(--ease-smooth-out); }
+.capability-arrow { transition: translate var(--duration-fast) var(--ease-smooth-out); }
+.capability-links h3 { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 6px; transition: color var(--duration-fast) var(--ease-smooth-out), text-decoration-color var(--duration-fast) var(--ease-smooth-out); }
+.capability-links a:is(:hover, :focus-visible) h3 { text-decoration-color: currentColor; }
+.capability-links a:is(:hover, :focus-visible) .capability-image { scale: 1.03; }
+.capability-links a:is(:hover, :focus-visible) .capability-arrow { translate: 3px -3px; }
+.footer-visual:has(.footer-arrow:is(:hover, :focus-visible)) .footer-art img { scale: 1.05; }
+.team-member:hover :is(.team-portrait img, .team-monogram) { scale: 1.03; }
+.team-portrait-monogram::before, .team-portrait-monogram::after { transition: transform calc(var(--duration-fast) * 3) var(--ease-smooth-out); }
+.team-member:hover .team-portrait-monogram::before { transform: rotate(-25deg) scaleX(1.55); }
+.team-member:hover .team-portrait-monogram::after { transform: rotate(45deg) scaleX(1.55); }
+.faq-list summary { transition: color var(--duration-fast) var(--ease-smooth-out); }
+.faq-list summary:hover { color: var(--agency-blue); }
+.contact-form-panel :is([data-slot="input"], [data-slot="textarea"]) { outline: 2px solid transparent; outline-offset: 6px; transition: border-color var(--duration-fast) var(--ease-smooth-out), outline-color var(--duration-fast) var(--ease-smooth-out), outline-offset var(--duration-fast) var(--ease-smooth-out); }
+
+/* First paint: CSS-only, so the hero moves before hydration and LCP content is never hidden. */
+.line { display: block; overflow: visible clip; padding-bottom: .14em; margin-bottom: -.14em; }
+.line > span { display: block; }
+@media (prefers-reduced-motion: no-preference) {
+  .line > span { animation: line-up 1000ms var(--ease-smooth-out) calc(var(--line, 0) * 90ms + 60ms) both; }
+  :is(.hero-bottom, .about-intro > :not(h1), .contact-intro > p, .team-intro > div, .services-masthead > .pill-button, .service-detail > .text-link:first-child, .service-detail-hero > div:first-child > :not(h1)) { animation: enter-up 900ms var(--ease-smooth-out) 320ms both; }
+  :is(.about-founder, .contact-layout > *, .service-promise, .hero-art .art-top, .hero-art .art-bottom) { animation: enter-up 900ms var(--ease-smooth-out) 460ms both; }
+  :is(.hero-art .sculpture, .team-portrait img, .team-monogram) { animation: art-settle 1400ms var(--reveal-ease) both; }
+  .service-detail-visual .service-artwork { animation: art-settle-soft 1200ms var(--reveal-ease) both; }
+  .services-visual-strip > div { animation: capsule-in 900ms var(--ease-smooth-out) both; }
+  .services-visual-strip > div:nth-child(2) { animation-delay: 70ms; }
+  .services-visual-strip > div:nth-child(3) { animation-delay: 140ms; }
+  .services-visual-strip > div:nth-child(4) { animation-delay: 210ms; }
+
+  /* Route changes: a quick exit and a slightly longer, rising entrance. */
+  .site-header { view-transition-name: site-header; }
+  ::view-transition-group(.page) { animation: none; }
+  ::view-transition-old(.page) { animation: page-out 180ms var(--ease-smooth-out) both; }
+  ::view-transition-new(.page) { animation: page-in 350ms var(--ease-smooth-out) 60ms both; }
+
+  /* FAQ answers open to their natural height where the browser can interpolate it. */
+  .faq-list { interpolate-size: allow-keywords; }
+  .faq-list details::details-content { height: 0; overflow: clip; transition: height calc(var(--duration-fast) * 1.4) var(--ease-smooth-out), content-visibility calc(var(--duration-fast) * 1.4) allow-discrete; }
+  .faq-list details[open]::details-content { height: auto; }
+}
+@keyframes line-up { from { transform: translateY(120%); } }
+@keyframes enter-up { from { opacity: .001; transform: translateY(12px); } }
+@keyframes art-settle { from { transform: scale(1.06); } }
+@keyframes art-settle-soft { from { transform: scale(1.025); } }
+@keyframes capsule-in { from { opacity: .001; transform: scale(.92); } }
+@keyframes page-out { to { opacity: 0; } }
+@keyframes page-in { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+
+/* Scroll-driven depth, only where the browser drives animations from scroll. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .site-header { animation: header-rule linear both; animation-timeline: scroll(root); animation-range: 0 120px; }
+    .hero-art .sculpture { animation: art-settle 1400ms var(--reveal-ease) both, art-drift linear both; animation-timeline: auto, scroll(root); animation-range: normal, 0 100vh; }
+  }
+}
+@supports (animation-timeline: view()) and (timeline-scope: --a) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 761px) and (min-height: 651px) {
+    .capability-links { timeline-scope: --card-2, --card-3, --card-4; }
+    .capability-links a:nth-child(2) { view-timeline: --card-2 block; }
+    .capability-links a:nth-child(3) { view-timeline: --card-3 block; }
+    .capability-links a:nth-child(4) { view-timeline: --card-4 block; }
+    .capability-links a:not(:last-child) { transform-origin: 50% 0; animation: card-recede linear both; animation-range: entry 0% entry 100%; }
+    .capability-links a:nth-child(1) { animation-timeline: --card-2; }
+    .capability-links a:nth-child(2) { animation-timeline: --card-3; }
+    .capability-links a:nth-child(3) { animation-timeline: --card-4; }
+  }
+}
+@keyframes header-rule { from { border-bottom-color: transparent; } }
+@keyframes art-drift { to { translate: 0 40px; scale: 1.14; } }
+@keyframes card-recede { to { scale: .96; } }
 
 .service-detail { padding-block: 42px 90px; }
 .service-detail-hero { display: grid; grid-template-columns: 1.25fr 1fr; gap: 60px; align-items: stretch; margin-top: 48px; }
@@ -521,7 +600,7 @@ h2 { text-wrap: balance; }
 .about-hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: stretch; }
 .about-intro { align-self: center; padding-block: 24px; }
 .about-intro h1, .contact-intro h1 { font-size: clamp(48px, 6.35vw, 92px); font-weight: 450; line-height: 1.06; letter-spacing: -.04em; }
-.about-intro h1 span, .contact-intro h1 span { color: var(--agency-blue); }
+.about-intro h1 .accent, .contact-intro h1 .accent { color: var(--agency-blue); }
 .about-intro > p { max-width: 480px; margin-block: 32px; color: var(--agency-muted); font-size: 17px; line-height: 1.7; }
 .about-founder { min-height: 440px; padding: 42px; }
 .about-founder > p { font-size: clamp(42px, 5vw, 72px); }
@@ -549,7 +628,7 @@ h2 { text-wrap: balance; }
 .contact-next li { display: grid; grid-template-columns: 24px 1fr; gap: 18px; padding-block: 18px; border-top: 1px solid #7098ed; color: #d8e4ff; font-size: 14px; line-height: 1.65; }
 .contact-next li:last-child { padding-bottom: 0; }
 .contact-guide .text-link { align-self: flex-start; border-color: #7098ed; }
-.contact-guide .text-link:hover { color: #d8e4ff; border-color: currentColor; }
+.contact-guide .text-link:hover { color: #d8e4ff; }
 .contact-guide .text-link svg { flex-shrink: 0; }
 .contact-form-panel { grid-column: 2; grid-row: 1; background: var(--agency-paper); border-radius: 28px; padding: 40px; min-width: 0; }
 .contact-form-panel > h2 { font-size: clamp(25px, 2.6vw, 36px); font-weight: 450; line-height: 1.2; letter-spacing: -.025em; }
@@ -593,7 +672,7 @@ h2 { text-wrap: balance; }
 .team-page { padding-block: 76px 100px; }
 .team-intro { display: grid; grid-template-columns: 1.4fr 1fr; align-items: end; gap: 60px; margin-bottom: 64px; }
 .team-intro h1 { font-size: clamp(42px, 6vw, 76px); font-weight: 450; line-height: 1.06; letter-spacing: -.04em; }
-.team-intro h1 span { color: var(--agency-blue); }
+.team-intro h1 .accent { color: var(--agency-blue); }
 .team-intro p { max-width: 400px; color: var(--agency-muted); font-size: 17px; line-height: 1.65; margin-bottom: 24px; }
 .team-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .team-portrait { aspect-ratio: 4 / 5; position: relative; overflow: hidden; border-radius: 28px; background: var(--agency-paper); display: grid; place-items: center; color: var(--agency-muted); }

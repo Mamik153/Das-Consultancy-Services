@@ -3,6 +3,7 @@ const entrances: Record<string, Keyframe[]> = {
   headline: [{ opacity: 0, transform: "translateY(16px)", filter: "blur(2px)" }, { opacity: 1, transform: "translateY(0)", filter: "blur(0)" }],
   panel: [{ opacity: 0, transform: "scale(.985)" }, { opacity: 1, transform: "scale(1)" }],
   fade: [{ opacity: 0 }, { opacity: 1 }],
+  clip: [{ clipPath: "inset(0 0 100% 0 round 28px)", transform: "scale(1.04)" }, { clipPath: "inset(0 0 0% 0 round 28px)", transform: "scale(1)" }],
 };
 
 function milliseconds(value: string, fallback: number) {
@@ -65,7 +66,7 @@ export function observeSectionMotion() {
       const index = parent?.hasAttribute("data-motion-group") ? Array.from(parent.children).indexOf(element) : 0;
       const animation = element.animate(entrances[kind] || entrances.rise, {
         id: "section-reveal",
-        duration: kind === "panel" || kind === "headline" ? duration * 1.2 : kind === "fade" ? duration * .8 : duration,
+        duration: kind === "panel" || kind === "headline" || kind === "clip" ? duration * 1.2 : kind === "fade" ? duration * .8 : duration,
         delay: Math.min(index, 3) * stagger,
         easing,
         fill: "both",

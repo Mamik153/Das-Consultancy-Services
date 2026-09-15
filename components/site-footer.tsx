@@ -8,7 +8,7 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="page-shell">
-        <div className="footer-invitation" data-motion="rise"><h2>Something in mind?<br /><span>Let’s make it real.</span></h2><div className="footer-visual"><div className="footer-art"><Image src="/images/services-sculpture.webp" alt="" fill sizes="(max-width: 760px) 150px, 240px" /></div><Link href="/contact" className="footer-arrow" aria-label="Start a project enquiry"><ArrowUpRight aria-hidden="true" /></Link></div></div>
+        <div className="footer-invitation" data-motion="rise"><h2>Something in mind?<br /><span>Let’s make it real.</span></h2><div className="footer-visual"><div className="footer-art" data-motion="clip"><Image src="/images/services-sculpture.webp" alt="" fill sizes="(max-width: 760px) 150px, 240px" /></div><Link href="/contact" className="footer-arrow" aria-label="Start a project enquiry"><ArrowUpRight aria-hidden="true" /></Link></div></div>
         <div className="footer-contact" data-motion="rise"><p>A short description is all it takes to start.<br />We’ll get back to you within one business day.</p><Link href="/contact">Start a conversation<ArrowUpRight size={20} aria-hidden="true" /></Link></div>
         <div className="footer-bottom" data-motion="rise">
           <Link href="/" className="footer-logo" aria-label={`${site.name} home`}>

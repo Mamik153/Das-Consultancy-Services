@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ViewTransition } from "react";
 import { pageMetadata } from "@/lib/metadata";
 import localFont from "next/font/local";
 import { JsonLd } from "@/components/json-ld";
@@ -64,7 +65,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         </a>
         <SiteHeader />
         <main id="main" className="flex-1">
-          {children}
+          <ViewTransition default="page">{children}</ViewTransition>
         </main>
         <SiteFooter />
         <SectionMotion />

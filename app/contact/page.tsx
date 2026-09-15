@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/json-ld";
 import { SculptureMark } from "@/components/sculpture-mark";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
+import { Line } from "@/components/line";
 
 const title = "Contact";
 const description = `Start an enquiry with ${site.name}. Describe the problem in a few sentences and you will get a reply within one business day.`;
@@ -19,7 +20,7 @@ export default function ContactPage() {
 
       <section className="contact-page page-shell" aria-labelledby="contact-title">
         <header className="contact-intro" data-motion-group>
-          <h1 id="contact-title" data-motion="headline">Start an<br /><span>enquiry.</span></h1>
+          <h1 id="contact-title"><Line index={0}>Start an</Line><Line index={1} accent>enquiry.</Line></h1>
           <p>{description}</p>
         </header>
         <div className="contact-layout">

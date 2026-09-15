@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/json-ld";
 import { SculptureMark } from "@/components/sculpture-mark";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
+import { Line } from "@/components/line";
 
 const title = "About";
 const description = "Meet Das Software Consultancy, a founder-led team building software and integrating AI with clear scope, direct communication, and client-owned code.";
@@ -41,7 +42,7 @@ export default function AboutPage() {
       <div className="about-page page-shell">
         <header className="about-hero">
           <div className="about-intro" data-motion-group>
-            <h1 data-motion="headline">About us.<br /><span>Small by choice.</span></h1>
+            <h1><Line index={0}>About us.</Line><Line index={1} accent>Small by choice.</Line></h1>
             <p>{description}</p>
             <Link href="/team" className="text-link">Meet the team <ArrowUpRight size={20} aria-hidden="true" /></Link>
           </div>

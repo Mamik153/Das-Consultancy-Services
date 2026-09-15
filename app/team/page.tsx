@@ -5,6 +5,7 @@ import { ArrowUpRight, UserRound } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { breadcrumbSchema, graph, teamPageSchema } from "@/lib/schema";
 import { site } from "@/site.config";
+import { Line } from "@/components/line";
 
 const description = "Meet founders Mamik Das, Aniket Giri, and Sumit Khanna: software engineers and leaders with hands-on AI integration, product, and engineering experience.";
 
@@ -16,7 +17,7 @@ export default function TeamPage() {
       <JsonLd data={graph(breadcrumbSchema([{ name: "Our team", path: "/team" }]), teamPageSchema)} />
       <section className="team-page page-shell">
         <header className="team-intro" data-motion-group>
-          <h1>The people behind<br /><span>your next build.</span></h1>
+          <h1><Line index={0}>The people behind</Line><Line index={1} accent>your next build.</Line></h1>
           <div><p>Meet our founding team. Three hands-on engineers with extensive experience building software and integrating AI into products, bringing product expertise, technical leadership, and people management to the same table.</p><Link href="/contact" className="text-link">Start a conversation <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
         </header>
         <ul className="team-list" data-motion-group aria-label="Team members">

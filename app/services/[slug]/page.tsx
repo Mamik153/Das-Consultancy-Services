@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
+import { Line } from "@/components/line";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -33,7 +34,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       <article className="service-detail page-shell">
         <Link className="text-link" href="/services"><ArrowLeft size={17} aria-hidden="true" /> All expertise</Link>
         <div className="service-detail-hero" data-motion-group>
-          <div><h1>{service.title}</h1><p>{service.summary}</p><Link className="pill-button dark-button" href="/contact">Discuss your project <ArrowUpRight size={20} aria-hidden="true" /></Link></div>
+          <div><h1><Line index={0}>{service.title}</Line></h1><p>{service.summary}</p><Link className="pill-button dark-button" href="/contact">Discuss your project <ArrowUpRight size={20} aria-hidden="true" /></Link></div>
           <div className="service-detail-visual">
             <Image className="service-artwork" src={`/images/services/${service.slug}.webp`} alt="" width={960} height={640} sizes="(max-width: 760px) 100vw, 45vw" loading="eager" />
             <aside className="service-promise" data-motion="panel"><h2>{service.promise}</h2><div><span>{service.engagement}</span></div></aside>

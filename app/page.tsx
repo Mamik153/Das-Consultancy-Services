@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/json-ld";
 import { SculptureMark } from "@/components/sculpture-mark";
 import { faqSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
+import { Line } from "@/components/line";
 
 const servicePreviews = {
   "product-engineering": { detail: "Web apps, APIs & AI integration", outcome: "Build your product" },
@@ -24,7 +25,7 @@ export default function Home() {
       <JsonLd data={graph(faqSchema)} />
       <section className="hero page-shell" aria-labelledby="hero-title">
         <div className="hero-copy" data-motion-group>
-          <h1 data-motion="headline" id="hero-title">Big ambition.<br />Thoughtful<br /><span>engineering.</span></h1>
+          <h1 id="hero-title"><Line index={0}>Big ambition.</Line><Line index={1}>Thoughtful</Line><Line index={2} accent>engineering.</Line></h1>
           <div className="hero-bottom">
             <p>We turn your next big idea into software that works. An independent engineering partner for founders ready to build something that lasts.</p>
             <Link className="pill-button dark-button" href="/contact">Let’s build together <ArrowUpRight aria-hidden="true" size={20} /></Link>
@@ -83,7 +84,7 @@ export default function Home() {
           <ol className="process-list" data-motion-group>
             {steps.map((step) => (
               <li key={step.number}>
-                <div className="step-top"><span>{step.number}</span><ArrowDownRight aria-hidden="true" size={30} /></div>
+                <div className="step-top"><span data-motion="panel">{step.number}</span><ArrowDownRight aria-hidden="true" size={30} /></div>
                 <h3>{step.title}</h3><p>{step.detail}</p>
                 <div className="deliverable"><Check aria-hidden="true" size={16} />{step.deliverable}</div>
               </li>

@@ -24,10 +24,11 @@ test("section reveals run once, release on focus/reduced motion, and clean up on
       });
     }
   }
-  const elements = Array.from({ length: 5 }, () => new Element());
+  const elements = Array.from({ length: 6 }, () => new Element());
   elements[0].dataset.motion = "headline";
   elements[1].dataset.motion = "panel";
   elements[2].dataset.motion = "fade";
+  elements[5].dataset.motion = "clip";
   elements.forEach((element) => { element.parentElement.children = elements; });
   let intersect: (entries: { target: Element; isIntersecting: boolean; intersectionRatio?: number }[]) => void;
   const observed = new Set<Element>();
@@ -54,9 +55,10 @@ test("section reveals run once, release on focus/reduced motion, and clean up on
   const source = readFileSync(new URL("./section-motion.ts", import.meta.url), "utf8");
   runInNewContext(ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } }).outputText, context);
   const cleanup = exports.observeSectionMotion!()!;
-  assert.equal(observed.size, 5);
-  assert.deepEqual(calls.map((call) => call.delay), [0, 120, 240, 360, 360]);
-  assert.deepEqual(calls.map((call) => call.duration), [1200, 1200, 800, 1000, 1000]);
+  assert.equal(observed.size, 6);
+  assert.deepEqual(calls.map((call) => call.delay), [0, 120, 240, 360, 360, 360]);
+  assert.deepEqual(calls.map((call) => call.duration), [1200, 1200, 800, 1000, 1000, 1200]);
+  assert.equal(calls[5].frames.map((frame) => frame.clipPath).join(" → "), "inset(0 0 100% 0 round 28px) → inset(0 0 0% 0 round 28px)", "media unmasks from the top edge");
   assert.ok(calls.every((call) => call.easing === "cubic-bezier(0.25, 0.1, 0.25, 1)"));
   intersect!([{ target: elements[0], isIntersecting: false }]);
   assert.equal(calls[0].plays, 0);
@@ -75,13 +77,13 @@ test("section reveals run once, release on focus/reduced motion, and clean up on
   cleanup();
   assert.equal(listeners.size, 0);
   exports.observeSectionMotion!()!();
-  assert.equal(calls.length, 5, "reduced motion never creates hidden pending effects");
+  assert.equal(calls.length, 6, "reduced motion never creates hidden pending effects");
   preference.matches = false;
   tokens["--reveal-duration"] = "1000ms";
   tokens["--reveal-stagger"] = "120ms";
   const stop = exports.observeSectionMotion!()!;
-  assert.deepEqual(calls.slice(5).map((call) => call.duration), [1200, 1200, 800, 1000, 1000], "seconds and milliseconds produce the same pacing");
-  assert.deepEqual(calls.slice(5).map((call) => call.delay), [0, 120, 240, 360, 360]);
+  assert.deepEqual(calls.slice(6).map((call) => call.duration), [1200, 1200, 800, 1000, 1000, 1200], "seconds and milliseconds produce the same pacing");
+  assert.deepEqual(calls.slice(6).map((call) => call.delay), [0, 120, 240, 360, 360, 360]);
   stop();
   elements.forEach((element) => { element.top = 100; });
   const callCount = calls.length;

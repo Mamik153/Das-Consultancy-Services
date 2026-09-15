@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { site } from "@/site.config";
+import { Line } from "@/components/line";
 
 const title = "Services";
 const description = "Explore product engineering, architecture reviews, project rescue, and technical advisory. Software and AI expertise with scope and pricing agreed upfront.";
@@ -23,8 +24,8 @@ export default function ServicesPage() {
           <div className="services-visual-arrow"><ArrowRight strokeWidth={1.3} /></div>
           <div className="services-visual-build"><Image src="/images/services-sculpture.webp" alt="" fill sizes="(max-width: 760px) 25vw, 24vw" loading="eager" /><span>built.</span></div>
         </div>
-        <header className="services-masthead" data-motion="headline">
-          <h1>Services.</h1>
+        <header className="services-masthead">
+          <h1><Line index={0}>Services.</Line></h1>
           <Link href="/contact" className="pill-button dark-button">Start an enquiry <ArrowUpRight size={20} aria-hidden="true" /></Link>
         </header>
         <div className="services-intro" data-motion-group>
@@ -45,6 +46,7 @@ export default function ServicesPage() {
             >
               <Image
                 className="service-artwork"
+                data-motion="clip"
                 src={`/images/services/${service.slug}.webp`}
                 alt=""
                 width={960}
